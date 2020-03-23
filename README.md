@@ -38,6 +38,6 @@ For convenience, I'm providing a filtered word2vec file under `dataset/word2vec.
 * [ ] add scripts + README explanations for neural taxvectors
 * [ ] add scripts + README explanations for neural word2vec
     * [x] statutes
-    * [ ] context
+    * [x] context
     * [ ] question
 * [ ] get someone from the lab to try this out
