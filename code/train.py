@@ -148,7 +148,6 @@ if args.word_embeddings is None:
                 max_length=args.max_length)
     else:
         model=StatuteModel(pretrained_model=args.bert_model, tokenizer=args.bert_tokenizer,
-                sample_size=args.sample_size, pooling_function=args.pooling_function,
                 tax_statistics=(mean_tax_amount,stddev_tax_amount), max_length=args.max_length)
     model.freeze_bert(thaw_top_layer=args.thaw_top_layer)
     model_file=None

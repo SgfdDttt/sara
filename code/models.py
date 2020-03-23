@@ -325,8 +325,8 @@ class QuestionModel(nn.Module):
     
 class StatuteModel(nn.Module):
     def __init__(self,pretrained_model='bert-base-uncased',
-            tokenizer='bert-base-uncased',max_length=512,sample_size=16,
-            annealing_rate=None,pooling_function='sigmoid',tax_statistics=None):
+            tokenizer='bert-base-uncased',max_length=512,
+            tax_statistics=None):
         super(StatuteModel, self).__init__()
         self.pretrained_model=pretrained_model
         # BERT base
@@ -347,16 +347,11 @@ class StatuteModel(nn.Module):
         torch.nn.init.xavier_uniform_(self.predictor.weight)
         torch.nn.init.zeros_(self.predictor.bias)
         # number of statutes in the softmax
-        self.sample_size=1
         if isinstance(tokenizer,str):
             self.tokenizer=BertTokenizer.from_pretrained(tokenizer)
         else:
             self.tokenizer=tokenizer
         self.max_length=max_length
-        if pooling_function=='sigmoid':
-            self.pooling_function=nn.Sigmoid()
-        elif pooling_function=='softmax':
-            self.pooling_function=nn.Softmax(dim=-1)
         self.gpu=False
 
     def cuda(self):
@@ -425,26 +420,6 @@ class StatuteModel(nn.Module):
         for a in activations:
             assert len(a)==len(statutes)
         return activations
-
-    def sample(self,activations,temperature=0):
-        logging.debug('calling self.sample')
-        # activations has size batch x num_statutes
-        # output has size batch x sample_size and is just indices of statutes
-        # epoch is 0-based indexing
-        assert temperature>=0
-        output=[ [] for _ in activations ]
-        for ii,a in enumerate(activations):
-            if temperature>0:
-                act=torch.FloatTensor(a)/temperature
-                with torch.no_grad():
-                    act=self.pooling_function(act)
-                act=act+1e-8/act.size(0) # avoid zero probs
-                probs=act/act.sum()
-                samples=np.random.choice(len(a),size=self.sample_size,replace=False,p=probs.numpy())
-            else:
-                samples=np.argsort(a)[-self.sample_size:]
-            output[ii]=samples
-        return output
 
     def forward(self,statutes=None,question=None,context=None,grad=False,output_is_numerical=None,temperature=0):
         samples=find_statutes(statutes,question)
