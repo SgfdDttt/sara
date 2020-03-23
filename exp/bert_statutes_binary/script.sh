@@ -1,4 +1,4 @@
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+#!/bin/bash
 batch=4
 update_period=4
 expdir=exp/bert_statutes_binary
