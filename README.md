@@ -20,7 +20,7 @@ Scripts can be found under `exp/???` and run like the above. You will need to sp
 For convenience, I'm providing a filtered word2vec file under `dataset/word2vec.txt`
 
 # todo
-* [ ] create requirement file for pip (run pip freeze on my repo)
+* [ ] create requirement file for pip (run pip freeze on my repo and figure out swi-prolog version)
 * [x] add scripts for BERT
     * [x] BERT statutes
     * [x] BERT context
@@ -29,6 +29,12 @@ For convenience, I'm providing a filtered word2vec file under `dataset/word2vec.
 * [ ] add scripts + README explanations for legal BERT
 * [ ] add scripts + README explanations for non-neural taxvectors
 * [ ] add scripts + README explanations for non-neural word2vec
+    * [x] statutes
+    * [ ] context
+    * [ ] question
 * [ ] add scripts + README explanations for neural taxvectors
 * [ ] add scripts + README explanations for neural word2vec
+    * [ ] statutes
+    * [ ] context
+    * [ ] question
 * [ ] get someone from the lab to try this out
