@@ -4,6 +4,16 @@ Statutory Reasoning Assessment: dataset and code
 # installing
 TODO
 
+# running the Prolog program
+
+## Prolog program
+Run `prolog statutes/prolog/init.pl`. This will load into memory the entirety of the Prolog version of the statutes, and open an interactive Prolog shell. From there, you can enter facts and call predicates.
+
+## Test cases
+Each case can be run individually, via e.g. `prolog cases/s3306_a_2_B_neg.pl`. The final `:- halt` statement ensures that no interactive shell remains open. If you want the shell to remain open, e.g. to try out other predicates with the facts of the case, comment that halt statement out.
+
+You may run all the cases one after the other with `bash code/run_cases_prolog.sh`. This is a good initial check to do to see whether the Prolog program is being interpreted and run correctly.
+
 # running experiments
 
 Scripts for experiments are under `exp`. For each experiment, we provide the hyperparameters that lead to the best binary score, and those that led to the best numerical score.
@@ -30,14 +40,26 @@ For convenience, I'm providing a filtered word2vec file under `dataset/word2vec.
     * [x] BERT question
     * [x] BERT statutes thaw
 * [ ] add scripts + README explanations for legal BERT
+    * [ ] BERT statutes
+    * [ ] BERT context
+    * [ ] BERT question
+    * [ ] BERT statutes thaw
 * [ ] add scripts + README explanations for non-neural taxvectors
+    * [ ] statutes
+    * [ ] context
+    * [ ] question
 * [x] add scripts + README explanations for non-neural word2vec
     * [x] statutes
     * [x] context
     * [x] question
 * [ ] add scripts + README explanations for neural taxvectors
+    * [ ] statutes
+    * [ ] context
+    * [ ] question
 * [x] add scripts + README explanations for neural word2vec
     * [x] statutes
     * [x] context
     * [x] question
 * [ ] get someone from the lab to try this out
+* [x] write section about Prolog
+* [ ] add license
