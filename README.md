@@ -20,14 +20,15 @@ Scripts can be found under `exp/???` and run like the above. You will need to sp
 For convenience, I'm providing a filtered word2vec file under `dataset/word2vec.txt`
 
 # todo
-* [] create requirement file for pip (run pip freeze on my repo)
-* [] add scripts for BERT
-    * [] BERT statutes
-    * [] BERT context
-    * [] BERT question
-* [] add scripts + README explanations for legal BERT
-* [] add scripts + README explanations for non-neural taxvectors
-* [] add scripts + README explanations for non-neural word2vec
-* [] add scripts + README explanations for neural taxvectors
-* [] add scripts + README explanations for neural word2vec
-* [] get someone from the lab to try this out
+* [ ] create requirement file for pip (run pip freeze on my repo)
+* [x] add scripts for BERT
+    * [x] BERT statutes
+    * [x] BERT context
+    * [x] BERT question
+    * [x] BERT statutes thaw
+* [ ] add scripts + README explanations for legal BERT
+* [ ] add scripts + README explanations for non-neural taxvectors
+* [ ] add scripts + README explanations for non-neural word2vec
+* [ ] add scripts + README explanations for neural taxvectors
+* [ ] add scripts + README explanations for neural word2vec
+* [ ] get someone from the lab to try this out
