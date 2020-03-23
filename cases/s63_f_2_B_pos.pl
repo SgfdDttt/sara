@@ -6,7 +6,7 @@
 
 % Facts
 :- discontiguous s151_b_applies/3.
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 payment_(alice_is_paid).
 patient_(alice_is_paid,alice).
 start_(alice_is_paid,"2017-12-31").

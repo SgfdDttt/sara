@@ -5,7 +5,7 @@
 % Section 63(f)(2)(A) applies to Alice in 2017. Entailment
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 payment_(alice_is_paid).
 patient_(alice_is_paid,alice).
 start_(alice_is_paid,"2017-12-31").

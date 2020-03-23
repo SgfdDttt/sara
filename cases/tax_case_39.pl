@@ -5,7 +5,7 @@
 % How much tax does Bob have to pay in 2015? $6812
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 birth_(birth_alice).
 agent_(birth_alice,alice).
 start_(birth_alice,"1964-06-07").

@@ -5,7 +5,7 @@
 % Section 2(b)(1)(A)(ii) applies to Bob in 2017. Contradiction
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 marriage_(alice_and_bob).
 agent_(alice_and_bob,alice).
 agent_(alice_and_bob,bob).

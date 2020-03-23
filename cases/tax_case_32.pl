@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2019? $2242833
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 income_(alice_income).
 agent_(alice_income,alice).
 amount_(alice_income,5723215).

@@ -5,7 +5,7 @@
 % Section 3306(c)(A) applies to Alice employing Bob for the year 2017. Entailment
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 service_(alice_employer).
 patient_(alice_employer,alice).
 agent_(alice_employer,bob).

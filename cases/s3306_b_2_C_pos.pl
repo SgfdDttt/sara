@@ -5,7 +5,7 @@
 % Section 3306(b)(2)(C) applies to the payment Alice made to the life insurance fund for the year 2017. Entailment
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 service_(alice_employer).
 patient_(alice_employer,alice).
 agent_(alice_employer,bob).

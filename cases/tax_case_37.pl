@@ -5,8 +5,8 @@
 % How much tax does Alice have to pay in 2018? $32045
 
 % Facts
-:- [law/semantics/init].
-:- [law/semantics/init].
+:- [statutes/prolog/init].
+:- [statutes/prolog/init].
 birth_(alice_is_born).
 agent_(alice_is_born,alice).
 start_(alice_is_born,"1992-01-10").

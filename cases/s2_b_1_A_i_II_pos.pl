@@ -5,7 +5,7 @@
 % Section 2(b)(1)(A)(i)(II) applies to Bob with Charlie as the qualifying child in 2018. Entailment
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 marriage_(alice_and_bob).
 agent_(alice_and_bob,alice).
 agent_(alice_and_bob,bob).

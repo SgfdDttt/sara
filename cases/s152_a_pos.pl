@@ -6,7 +6,7 @@
 
 % Facts
 :- discontiguous s152_c_1/5.
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 s152_c_1(bob,alice,2015,_,_).
 
 % Test

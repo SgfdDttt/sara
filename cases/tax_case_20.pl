@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2017? $90683
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 income_(alice_is_paid).
 agent_(alice_is_paid,alice).
 start_(alice_is_paid,"2017-12-31").

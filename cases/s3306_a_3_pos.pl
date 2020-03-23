@@ -6,7 +6,7 @@
 
 % Facts
 :- discontiguous s3306_b/11.
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 service_(alice_employer).
 patient_(alice_employer,alice).
 agent_(alice_employer,bob).

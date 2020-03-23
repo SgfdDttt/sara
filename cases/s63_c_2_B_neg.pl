@@ -5,7 +5,7 @@
 % Under section 63(c)(2)(B), Alice's basic standard deduction in 2017 is equal to $4400. Contradiction
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 payment_(alice_is_paid).
 patient_(alice_is_paid,alice).
 start_(alice_is_paid,"2017-12-31").

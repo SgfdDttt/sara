@@ -5,7 +5,7 @@
 % Section 3306(c)(7) applies to Alice's employment situation in 2017. Entailment
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 service_(alice_employed).
 patient_(alice_employed,"state of maryland").
 agent_(alice_employed,alice).

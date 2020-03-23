@@ -5,7 +5,7 @@
 % Section 3306(c)(10)(B) applies to Alice's employment situation in 2017. Entailment
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 hospital_(hopkins_is_a_hospital).
 agent_(hopkins_is_a_hospital,"johns hopkins hospital").
 service_(alice_employed).

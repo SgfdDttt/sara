@@ -5,7 +5,7 @@
 % Section 3306(b)(10)(B) applies to the payment of $12980 that Alice made in 2019. Contradiction
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 service_(alice_employer).
 patient_(alice_employer,alice).
 agent_(alice_employer,bob).

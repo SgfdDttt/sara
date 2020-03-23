@@ -5,7 +5,7 @@
 % How much tax does Bob have to pay in 2020? $17402
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 joint_return_(joint_return).
 agent_(joint_return,alice).
 agent_(joint_return,bob).

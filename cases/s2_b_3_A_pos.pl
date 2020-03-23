@@ -6,7 +6,7 @@
 
 % Facts
 :- discontiguous s151_c_applies/3.
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 marriage_(alice_and_bob).
 agent_(alice_and_bob,alice).
 agent_(alice_and_bob,bob).

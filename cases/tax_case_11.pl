@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2015? $0
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 father_(charlie_and_bob).
 agent_(charlie_and_bob,charlie).
 patient_(charlie_and_bob,bob).

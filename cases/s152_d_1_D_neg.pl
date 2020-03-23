@@ -7,7 +7,7 @@
 % Facts
 :- discontiguous s152_c/5.
 :- discontiguous s151_d/4.
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 income_(alice_makes_money).
 agent_(alice_makes_money,alice).
 amount_(alice_makes_money,312).

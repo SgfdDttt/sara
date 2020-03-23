@@ -6,7 +6,7 @@
 
 % Facts
 :- discontiguous s63/3.
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 s63(alice,2017,2102047).
 
 % Test

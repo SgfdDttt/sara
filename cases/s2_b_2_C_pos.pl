@@ -5,7 +5,7 @@
 % Section 2(b)(2)(C) applies to Bob in 2014. Entailment
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 marriage_(alice_and_bob).
 agent_(alice_and_bob,alice).
 agent_(alice_and_bob,bob).

@@ -5,7 +5,7 @@
 % Section 3306(c)(10)(A)(ii) applies to Bob's employment situation in 2017. Entailment
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 educational_institution_(hopkins_is_a_university).
 agent_(hopkins_is_a_university,"johns hopkins university").
 marriage_(bob_and_alice).

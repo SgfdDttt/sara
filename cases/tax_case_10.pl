@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2017? $68844
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 marriage_(alice_and_harold_marriage).
 agent_(alice_and_harold_marriage,alice).
 agent_(alice_and_harold_marriage,harold).

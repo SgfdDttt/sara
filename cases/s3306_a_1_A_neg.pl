@@ -6,7 +6,7 @@
 
 % Facts
 :- discontiguous s3306_b/11.
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 s3306_b(3200,_,bob_works,alice,bob,_,_,_,_,alice,bob).
 start_(bob_works,"2017-02-01").
 end_(bob_works,"2017-09-02").

@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2003? $7611
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 income_(alice_income_2003).
 agent_(alice_income_2003,alice).
 start_(alice_income_2003,"2003-12-31").

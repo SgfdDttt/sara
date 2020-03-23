@@ -5,7 +5,7 @@
 % Section 7703(a)(1) applies to Alice for the year 2018. Contradiction
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 marriage_(alice_and_bob).
 agent_(alice_and_bob,alice).
 agent_(alice_and_bob,bob).

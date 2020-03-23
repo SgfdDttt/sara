@@ -5,7 +5,7 @@
 % Section 3306(b) applies to the money paid by Alice to Bob for the year 2018. Entailment
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 service_(alice_employer).
 patient_(alice_employer,alice).
 agent_(alice_employer,bob).

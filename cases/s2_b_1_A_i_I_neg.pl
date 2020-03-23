@@ -5,7 +5,7 @@
 % Section 2(b)(1)(A)(i)(I) applies to Charlie in 2017. Contradiction
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 marriage_(alice_and_bob).
 agent_(alice_and_bob,alice).
 agent_(alice_and_bob,bob).

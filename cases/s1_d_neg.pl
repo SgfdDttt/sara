@@ -7,7 +7,7 @@
 % Facts
 :- discontiguous s2_a/5.
 :- discontiguous s63/3.
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 s2_a(alice,_,_,_,2017).
 s63(alice,2017,70117).
 

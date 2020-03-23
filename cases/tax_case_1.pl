@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2019? $0
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 service_(alice_employed_in_jail).
 patient_(alice_employed_in_jail,jail).
 agent_(alice_employed_in_jail,alice).

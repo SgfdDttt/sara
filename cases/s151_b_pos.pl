@@ -5,7 +5,7 @@
 % Alice can receive an exemption for Bob under section 151(b) for the year 2015. Entailment
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 marriage_(alice_and_bob).
 agent_(alice_and_bob,alice).
 agent_(alice_and_bob,bob).

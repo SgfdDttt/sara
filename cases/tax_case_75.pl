@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2012? $8883
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 residence_(alice_residence).
 agent_(alice_residence,alice).
 patient_(alice_residence,home).

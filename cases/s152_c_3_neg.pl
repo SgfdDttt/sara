@@ -5,7 +5,7 @@
 % Bob satisfies section 152(c)(3) with Alice claiming Bob as a qualifying child for the year 2019. Contradiction
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 birth_(alice_is_born).
 agent_(alice_is_born,alice).
 start_(alice_is_born,"1992-01-10").

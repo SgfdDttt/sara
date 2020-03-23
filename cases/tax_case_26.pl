@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2019? $196056
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 service_(alice_employer).
 patient_(alice_employer,alice).
 agent_(alice_employer,bob).

@@ -5,7 +5,7 @@
 % How much tax does Bob have to pay in 2012? $986
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 payment_(alice_income).
 patient_(alice_income,alice).
 start_(alice_income,"2012-12-31").

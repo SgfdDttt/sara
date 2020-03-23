@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2014? $21452
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 father_(bob_father).
 agent_(bob_father,bob).
 patient_(bob_father,alice).

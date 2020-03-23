@@ -7,7 +7,7 @@
 % Facts
 :- discontiguous s7703/8.
 :- discontiguous s63/3.
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 s7703(alice,spouse,_,_,_,_,_,2017).
 joint_return_(joint_return).
 agent_(joint_return,alice).

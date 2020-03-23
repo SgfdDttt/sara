@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 1997? $46734
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 birth_(alice_birth).
 agent_(alice_birth,alice).
 start_(alice_birth,"1950-11-04").

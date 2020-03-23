@@ -5,7 +5,7 @@
 % Under section 63(c)(7)(ii), Alice's basic standard deduction in 2019 is equal to $12000. Entailment
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 payment_(alice_is_paid).
 patient_(alice_is_paid,alice).
 start_(alice_is_paid,"2019-12-31").

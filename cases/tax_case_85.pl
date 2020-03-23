@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2019? $2477
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 payment_(alice_is_paid).
 patient_(alice_is_paid,alice).
 start_(alice_is_paid,"2019-12-31").

@@ -7,7 +7,7 @@
 % Facts
 :- discontiguous s63/3.
 :- discontiguous s7703/8.
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 s7703(alice,spouse,_,_,_,_,_,2017).
 s63(alice,2017,554313).
 

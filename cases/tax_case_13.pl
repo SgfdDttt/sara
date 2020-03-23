@@ -5,7 +5,7 @@
 % How much tax does Bob have to pay in 2017? $8710
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 father_(bob_and_alice).
 agent_(bob_and_alice,bob).
 patient_(bob_and_alice,alice).

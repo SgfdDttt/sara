@@ -5,7 +5,7 @@
 % Alice bears a relationship to Bob under section 152(d)(2)(G) for the year 2018. Contradiction
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 residence_(alice_and_bob).
 agent_(alice_and_bob,alice).
 agent_(alice_and_bob,bob).

@@ -5,7 +5,7 @@
 % Alice bears a relationship to Bob under section 152(d)(2)(F). Entailment
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 father_(charlie_and_bob).
 agent_(charlie_and_bob,charlie).
 patient_(charlie_and_bob,bob).

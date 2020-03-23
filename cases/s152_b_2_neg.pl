@@ -5,7 +5,7 @@
 % Section 152(b)(2) applies to Alice the year 2015. Contradiction
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 marriage_(alice_and_bob).
 agent_(alice_and_bob,alice).
 agent_(alice_and_bob,bob).

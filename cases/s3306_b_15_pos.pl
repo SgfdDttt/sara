@@ -6,7 +6,7 @@
 
 % Facts
 :- discontiguous s3306_c/6.
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 s3306_c(alice_employer,alice,bob,_,Day,_) :-
     (
         nonvar(Day),

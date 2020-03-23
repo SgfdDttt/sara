@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2013? $26567
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 joint_return_(alice_and_bob_joint_return).
 agent_(alice_and_bob_joint_return,alice).
 agent_(alice_and_bob_joint_return,bob).

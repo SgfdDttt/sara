@@ -6,7 +6,7 @@
 
 % Facts
 :- discontiguous s3306_c/6.
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 business_(alice_runs_a_factory).
 agent_(alice_runs_a_factory,alice).
 type_(alice_runs_a_factory,"manufacturing").

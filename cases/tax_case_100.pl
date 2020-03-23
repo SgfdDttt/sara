@@ -5,7 +5,7 @@
 % How much tax does Bob have to pay in 2006? $66088
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 income_(alice_income_2006).
 agent_(alice_income_2006,alice).
 amount_(alice_income_2006,97407).

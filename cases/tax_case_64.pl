@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2015? $81487
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 brother_(alice_and_bob).
 agent_(alice_and_bob,bob).
 patient_(alice_and_bob,alice).

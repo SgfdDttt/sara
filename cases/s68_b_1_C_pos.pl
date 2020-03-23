@@ -5,7 +5,7 @@
 % Section 68(b)(1)(C) applies to Alice in 2016 with the applicable amount equal to $250000. Entailment
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 income_(alice_is_paid).
 agent_(alice_is_paid,alice).
 start_(alice_is_paid,"2016-12-31").

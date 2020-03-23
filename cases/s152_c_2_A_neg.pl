@@ -5,7 +5,7 @@
 % Bob bears a relationship to Alice under section 152(c)(2)(A). Contradiction
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 brother_(alice_and_bob).
 agent_(alice_and_bob,bob).
 patient_(alice_and_bob,alice).

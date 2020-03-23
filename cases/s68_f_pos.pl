@@ -6,7 +6,7 @@
 
 % Facts
 :- discontiguous s2_a/5.
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 income_(alice_is_paid).
 agent_(alice_is_paid,alice).
 start_(alice_is_paid,"2018-12-31").

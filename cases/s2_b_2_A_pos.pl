@@ -5,7 +5,7 @@
 % Section 2(b)(2)(A) applies to Alice and Bob's marriage in 2018. Entailment
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 marriage_(alice_and_bob).
 agent_(alice_and_bob,alice).
 agent_(alice_and_bob,bob).

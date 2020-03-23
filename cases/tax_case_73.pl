@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2013? $15109
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 income_(alice_income_2013).
 agent_(alice_income_2013,alice).
 amount_(alice_income_2013,71879).

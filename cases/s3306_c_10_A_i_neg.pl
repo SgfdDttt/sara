@@ -5,7 +5,7 @@
 % Section 3306(c)(10)(A)(i) applies to Alice's employment situation in 2017. Contradiction
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 educational_institution_(hopkins_is_a_university).
 agent_(hopkins_is_a_university,"johns hopkins university").
 service_(alice_employed).

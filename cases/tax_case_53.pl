@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2020? $206332
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 brother_(alice_and_bob).
 agent_(alice_and_bob,bob).
 patient_(alice_and_bob,alice).

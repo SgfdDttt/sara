@@ -5,7 +5,7 @@
 % Section 3306(c)(16) applies to Alice's employment situation in 2017. Entailment
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 international_organization_(imf_is_an_international_organization).
 agent_(imf_is_an_international_organization,"international monetary fund").
 service_(alice_employed).

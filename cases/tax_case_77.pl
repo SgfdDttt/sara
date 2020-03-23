@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2023? $6449
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 income_(alice_income_2023).
 agent_(alice_income_2023,alice).
 amount_(alice_income_2023,54775).

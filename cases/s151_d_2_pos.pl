@@ -6,7 +6,7 @@
 
 % Facts
 :- discontiguous s151_c_applies/3.
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 s151_c_applies(alice,bob,2015).
 
 % Test

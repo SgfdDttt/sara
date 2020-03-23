@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2017? $0
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 hospital_(hopkins_is_a_hospital).
 agent_(hopkins_is_a_hospital,"johns hopkins hospital").
 service_(alice_employed).

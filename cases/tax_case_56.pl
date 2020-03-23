@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2015? $130388
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 income_(alice_makes_money).
 agent_(alice_makes_money,alice).
 amount_(alice_makes_money,395276).

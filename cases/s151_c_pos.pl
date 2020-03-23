@@ -6,7 +6,7 @@
 
 % Facts
 :- discontiguous s152_c_1/5.
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 marriage_(alice_and_charlie).
 agent_(alice_and_charlie,alice).
 agent_(alice_and_charlie,charlie).

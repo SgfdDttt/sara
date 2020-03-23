@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2018? $259487
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 son_(bob_birth).
 agent_(bob_birth,bob).
 patient(bob_birth,charlie).

@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2019? $62000
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 marriage_(alice_marriage).
 agent_(alice_marriage,alice).
 agent_(alice_marriage,bob).

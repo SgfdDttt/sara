@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2017? $16664
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 service_(alice_employed).
 patient_(alice_employed,"state of maryland").
 agent_(alice_employed,alice).

@@ -5,7 +5,7 @@
 % Section 63(c)(6)(D) applies to the Walter Brown Family Trust II for 1999. Entailment
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 business_trust_(wbft_is_a_trust).
 agent_(wbft_is_a_trust,"Walter Brown Family Trust II").
 start_(wbft_is_a_trust,"1973-01-01").

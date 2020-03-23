@@ -5,8 +5,8 @@
 % How much tax does Alice have to pay in 2017? $0
 
 % Facts
-:- [law/semantics/init].
-:- [law/semantics/init].
+:- [statutes/prolog/init].
+:- [statutes/prolog/init].
 father_(alice_and_bob).
 agent_(alice_and_bob,bob).
 patient_(alice_and_bob,alice).

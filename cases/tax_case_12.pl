@@ -5,7 +5,7 @@
 % How much tax does Alice have to pay in 2020? $118227
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 service_(bob_works_for_alice).
 agent_(bob_works_for_alice,bob).
 patient_(bob_works_for_alice,alice).

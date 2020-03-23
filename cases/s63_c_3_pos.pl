@@ -7,7 +7,7 @@
 % Facts
 :- discontiguous s63_f_1_A/2.
 :- discontiguous s63_f_1_B/2.
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 payment_(alice_is_paid).
 patient_(alice_is_paid,alice).
 start_(alice_is_paid,"2017-12-31").

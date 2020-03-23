@@ -7,7 +7,7 @@
 % Facts
 :- discontiguous s152_c_2/4.
 :- discontiguous s152_c_3/3.
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 son_(bob_is_son).
 agent_(bob_is_son,bob).
 patient_(bob_is_son,alice).

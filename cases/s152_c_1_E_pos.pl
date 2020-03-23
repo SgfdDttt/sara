@@ -5,7 +5,7 @@
 % Section 152(c)(1)(E) applies to Bob for the year 2019. Entailment
 
 % Facts
-:- [law/semantics/init].
+:- [statutes/prolog/init].
 son_(bob_is_son).
 agent_(bob_is_son,bob).
 patient_(bob_is_son,alice).
