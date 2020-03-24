@@ -42,7 +42,7 @@ For convenience, I'm providing a filtered word2vec file under `dataset/word2vec.
 * [ ] add scripts + README explanations for legal BERT
     * [x] statutes
     * [x] context
-    * [ ] question
+    * [x] question
     * [ ] statutes thaw
 * [ ] add scripts + README explanations for non-neural taxvectors
     * [ ] statutes
