@@ -39,11 +39,11 @@ For convenience, I'm providing a filtered word2vec file under `dataset/word2vec.
     * [x] BERT context
     * [x] BERT question
     * [x] BERT statutes thaw
-* [ ] add scripts + README explanations for legal BERT
+* [x] add scripts + README explanations for legal BERT
     * [x] statutes
     * [x] context
     * [x] question
-    * [ ] statutes thaw
+    * [x] statutes thaw
 * [ ] add scripts + README explanations for non-neural taxvectors
     * [ ] statutes
     * [ ] context
