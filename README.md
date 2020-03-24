@@ -52,10 +52,10 @@ For convenience, I'm providing a filtered word2vec file under `dataset/word2vec.
     * [x] statutes
     * [x] context
     * [x] question
-* [ ] add scripts + README explanations for neural taxvectors
+* [x] add scripts + README explanations for neural taxvectors
     * [x] statutes
     * [x] context
-    * [ ] question
+    * [x] question
 * [x] add scripts + README explanations for neural word2vec
     * [x] statutes
     * [x] context
