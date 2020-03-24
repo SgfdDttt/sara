@@ -40,10 +40,10 @@ For convenience, I'm providing a filtered word2vec file under `dataset/word2vec.
     * [x] BERT question
     * [x] BERT statutes thaw
 * [ ] add scripts + README explanations for legal BERT
-    * [x] BERT statutes
-    * [ ] BERT context
-    * [ ] BERT question
-    * [ ] BERT statutes thaw
+    * [x] statutes
+    * [x] context
+    * [ ] question
+    * [ ] statutes thaw
 * [ ] add scripts + README explanations for non-neural taxvectors
     * [ ] statutes
     * [ ] context
@@ -62,4 +62,5 @@ For convenience, I'm providing a filtered word2vec file under `dataset/word2vec.
     * [x] question
 * [ ] get someone from the lab to try this out
 * [x] write section about Prolog
+* [ ] get interactive session and test all scripts
 * [ ] add license
