@@ -34,7 +34,7 @@ For convenience, I'm providing a filtered word2vec file under `dataset/word2vec.
 
 # todo
 * [ ] get interactive session and test all scripts
-* [ ] write "how to install" part
+* [ ] write how to install section
 * [ ] create requirement file for pip (run pip freeze on my repo and figure out swi-prolog version)
 * [ ] add license
 * [ ] get someone from the lab to try this out
