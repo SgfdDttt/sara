@@ -45,7 +45,7 @@ For convenience, I'm providing a filtered word2vec file under `dataset/word2vec.
     * [x] question
     * [x] statutes thaw
 * [ ] add scripts + README explanations for non-neural taxvectors
-    * [ ] statutes
+    * [x] statutes
     * [ ] context
     * [ ] question
 * [x] add scripts + README explanations for non-neural word2vec
