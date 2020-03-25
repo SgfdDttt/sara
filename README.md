@@ -18,6 +18,8 @@ You may run all the cases one after the other with `bash code/run_cases_prolog.s
 
 First, you need to generate the dataset files used by the models, using `python code/make_dataset.py`.
 
+Second, if you want to run the experiments with the taxvectors, you need to create a tokenized version of the dataset. For that, download the tools from BlairStanek/TaxVectorSemantics, point to that directory with the variable `LAW_TOKENIZER_DIR` in the script `code/tokenize_text_dataset.py`, then run `python code/tokenize_text_dataset.py`.
+
 Scripts for experiments are under `exp/`. For each experiment, we provide the hyperparameters that led to the best binary score, and those that led to the best numerical score.
 
 ## BERT models
@@ -32,16 +34,17 @@ Scripts for BERT-based models will automatically download BERT-base-cased and ru
 To run the experiment with Legal BERT, I'm providing the scripts as well. They are similar to the BERT scripts, except that they point to the Legal BERT model and tokenizer instead of ordinary BERT. You need to modify the value of the variable `bert_model` to point to Legal BERT.
 
 ## Feedforward neural models and nonneural models
-Scripts can be found under `exp/{neural,nonneural}_word2vec_{statutes,context,question}_{binary,numerical}/`, and run like the above. You will need to specify which word embedding file you want to use. The word embeddings need to be specified one word per line, followed by its vectors entries. The first line is the number of vectors followed by the dimensionality.
+Scripts can be found under `exp/{neural,nonneural}_word2vec_{statutes,context,question}_{binary,numerical}/`, and run like the above. You will need to specify which word embedding file you want to use, by modifying the `word_embeddings` file in the bash script. The word embeddings need to be specified one word per line, followed by its vectors entries. The first line is the number of vectors followed by the dimensionality.
 
-For convenience, we're providing a filtered word2vec file under `dataset/word2vec.txt`.
+For convenience, we're providing a filtered word2vec file under `dataset/word2vec.txt`. **What about Andrew's TaxVectors?**
 
 # todo
 * [ ] get someone from the lab to try this out
 * [ ] copy over the statute source files
 * [ ] add license
 * [ ] remove the CUDA_VISIBLE_DEVICES statement in scripts
-* [ ] add Legal BERT and tokenizer to the repo.
+* [ ] add pointer to Legal BERT or Legal BERT itself to repo
+* [ ] add pointer to Tax Vectors
 * [x] write how to install section
 * [x] create requirement file for pip (run pip freeze on my repo and figure out swi-prolog version)
 * [x] get interactive session and test all scripts
