@@ -1,10 +1,10 @@
-# sara
-Statutory Reasoning Assessment: dataset and code
+# Statutory Reasoning Assessment: dataset and code
+The statutes are located under `statutes/source/` and the cases under `cases/`. This dataset is described in **pointer to paper**.
 
-# installing
-TODO
+# Installing
+Install the required Python packages with `pip install -r requirements.txt`. To run the Prolog program, you need SWI-Prolog version 7.2.3 for amd64.
 
-# running the Prolog program
+# Running the Prolog program
 
 ## Prolog program
 Run `prolog statutes/prolog/init.pl`. This will load into memory the entirety of the Prolog version of the statutes, and open an interactive Prolog shell. From there, you can enter facts and call predicates.
@@ -14,7 +14,9 @@ Each case can be run individually, via e.g. `prolog cases/s3306_a_2_B_neg.pl`. T
 
 You may run all the cases one after the other with `bash code/run_cases_prolog.sh`. This is a good initial check to do to see whether the Prolog program is being interpreted and run correctly.
 
-# running experiments
+# Running experiments
+
+First, you need to generate the dataset files used by the models, using `python code/make_dataset.py`.
 
 Scripts for experiments are under `exp`. For each experiment, we provide the hyperparameters that lead to the best binary score, and those that led to the best numerical score.
 
@@ -33,10 +35,12 @@ Scripts can be found under `exp/{neural,nonneural}_word2vec_{statutes,context,qu
 For convenience, I'm providing a filtered word2vec file under `dataset/word2vec.txt`
 
 # todo
-* [ ] write how to install section
-* [ ] create requirement file for pip (run pip freeze on my repo and figure out swi-prolog version)
-* [ ] add license
 * [ ] get someone from the lab to try this out
+* [ ] copy over the statute source files
+* [ ] add license
+* [ ] remove the CUDA_VISIBLE_DEVICES statement in scripts
+* [x] write how to install section
+* [x] create requirement file for pip (run pip freeze on my repo and figure out swi-prolog version)
 * [x] get interactive session and test all scripts
 * [x] add scripts for BERT
     * [x] BERT statutes
