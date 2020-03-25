@@ -33,11 +33,11 @@ Scripts can be found under `exp/{neural,nonneural}_word2vec_{statutes,context,qu
 For convenience, I'm providing a filtered word2vec file under `dataset/word2vec.txt`
 
 # todo
-* [ ] get interactive session and test all scripts
 * [ ] write how to install section
 * [ ] create requirement file for pip (run pip freeze on my repo and figure out swi-prolog version)
 * [ ] add license
 * [ ] get someone from the lab to try this out
+* [x] get interactive session and test all scripts
 * [x] add scripts for BERT
     * [x] BERT statutes
     * [x] BERT context
