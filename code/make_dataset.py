@@ -18,7 +18,7 @@ except:
 # 1. collect statutes
 all_statutes=[]
 for name in glob.glob(PATHNAME_STATUTES+'/*'):
-    all_statutes.extend([line.strip('\n').replace('§','Section ') \
+    all_statutes.extend([line.strip('\n').strip(' ').replace('§','Section ') \
             for line in open(name,'r')])
 all_statutes=list(map(lambda x: x.split('#')[0], all_statutes))
 all_statutes=list(filter(lambda x: len(x)>0, all_statutes))
