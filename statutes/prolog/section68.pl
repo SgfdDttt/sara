@@ -28,13 +28,13 @@ s68_a(Individual,Amount_itemized_deductions,Reduction,Year) :-
     Reduction is min(Reduction1,Reduction2).
 
 %(1) 3 percent of the excess of adjusted gross income over the applicable amount, or
-s68_a_1(Gross_income,Applicable_amount,Reduction) :-
-    X is 3*(Gross_income-Applicable_amount),
+s68_a_1(Adjusted_gross_income,Applicable_amount,Reduction) :-
+    X is 3*(Adjusted_gross_income-Applicable_amount),
     Reduction is round(X rdiv 100).
 
 %(2) 80 percent of the amount of the itemized deductions otherwise allowable for such taxable year.
-s68_a_2(Deductions,Reduction) :-
-    X is 80*Deductions,
+s68_a_2(Amount_itemized_deductions,Reduction) :-
+    X is 80*Amount_itemized_deductions,
     Reduction is round(X rdiv 100).
 
 
@@ -62,7 +62,7 @@ amount("D",Amount) :-
 s68_b_1_A(Individual,Applicable_amount,Year) :-
     (
         (
-            s7703(Individual,Spouse,_,_,_,_,_,Year),
+            s7703(Individual,Spouse,_,_,_,_,_,_,Year),
             joint_return_(Joint_return),
             agent_(Joint_return,Individual),
             agent_(Joint_return,Spouse),
@@ -82,14 +82,14 @@ s68_b_1_B(Individual,Applicable_amount,Year) :-
 
 %(C) $250,000 in the case of an individual who is not married and who is not a surviving spouse or head of household, and
 s68_b_1_C(Individual,Applicable_amount,Year) :-
-    \+ s7703(Individual,_,_,_,_,_,_,Year),
+    \+ s7703(Individual,_,_,_,_,_,_,_,Year),
     \+ s2_a(Individual,_,_,_,Year), 
     \+ s2_b(Individual,_,_,Year),
     amount("C",Applicable_amount).
 
 %(D) ½ the amount applicable under subparagraph (A) in the case of a married individual filing a separate return.
 s68_b_1_D(Individual,Applicable_amount,Year) :-
-    s7703(Individual,Spouse,_,_,_,_,_,Year),
+    s7703(Individual,Spouse,_,_,_,_,_,_,Year),
     \+ (
         joint_return_(Joint_return),
         agent_(Joint_return,Individual),

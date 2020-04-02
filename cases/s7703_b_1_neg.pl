@@ -53,5 +53,5 @@ start_(alice_and_bob_joint_return_2019,"2019-01-01").
 end_(alice_and_bob_joint_return_2019,"2019-12-31").
 
 % Test
-:- \+ s7703_b_1(alice,_,_,2018,_).
+:- \+ s7703_b_1(alice,_,_,_,_,2018).
 :- halt.

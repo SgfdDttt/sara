@@ -13,5 +13,5 @@ start_(alice_and_bob,"2014-04-15").
 patient_(alice_and_bob,home).
 
 % Test
-:- s152_d_2_H(alice,bob,2018,_,_).
+:- s152_d_2_H(alice,bob,2018,_,_,_).
 :- halt.

@@ -16,5 +16,5 @@ patient_(alice_and_charlie,charlie).
 start_(alice_and_charlie,"1992-10-12").
 
 % Test
-:- \+ s152_d_2_E(alice,bob,_,_).
+:- \+ s152_d_2_E(alice,bob,_,_,_).
 :- halt.

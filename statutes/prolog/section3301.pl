@@ -1,12 +1,12 @@
 %§3301. Rate of tax
 
 %There is hereby imposed on every employer (as defined in section 3306(a)) for each calendar year an excise tax, with respect to having individuals in his employ, equal to 6 percent of the total wages (as defined in section 3306(b)) paid by such employer during the calendar year with respect to employment (as defined in section 3306(c)).
-s3301(Employer,Year,Total_wages,Tax) :-
+s3301(Employer,Year,Total_wages,Excise_tax) :-
     first_day_year(Year,First_day_year),
     last_day_year(Year,Last_day_year),
     s3306_a(Employer,Year,_),
     total_wages_employer(Employer,Total_wages,First_day_year,Last_day_year),
-    Tax is round(0.06*Total_wages).
+    Excise_tax is round(0.06*Total_wages).
 
 total_wages_employer(Employer,Total_wages,Start_day,End_day) :-
     % some individual's wage is the sum of that person's wages, capped at $7000 (as per §3301(b)(1))

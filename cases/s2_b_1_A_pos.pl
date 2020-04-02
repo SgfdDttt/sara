@@ -5,7 +5,7 @@
 % Section 2(b)(1)(A) applies to Bob in 2018. Entailment
 
 % Facts
-:- discontiguous s152_c/5.
+:- discontiguous s152_c/3.
 :- [statutes/prolog/init].
 marriage_(alice_and_bob).
 agent_(alice_and_bob,alice).
@@ -37,7 +37,7 @@ amount_(Event,1) :- bob_household_maintenance(_,Event,_,_).
 purpose_(Event,bob_s_house) :- bob_household_maintenance(_,Event,_,_).
 start_(Event,Start_day) :- bob_household_maintenance(_,Event,Start_day,_).
 end_(Event,End_day) :- bob_household_maintenance(_,Event,_,End_day).
-s152_c(charlie,bob,Year,_,_) :- between(2004,2019,Year).
+s152_c(charlie,bob,Year) :- between(2004,2019,Year).
 
 % Test
 :- s2_b_1_A(bob,_,_,2018).

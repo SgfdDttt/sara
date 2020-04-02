@@ -16,5 +16,5 @@ agent_(alice_and_bob_divorce,"decree of divorce").
 start_(alice_and_bob_divorce,"2017-09-16").
 
 % Test
-:- s7703_a_2(alice_and_bob,_,2018).
+:- s7703_a_2(alice,_,_,_,2018).
 :- halt.

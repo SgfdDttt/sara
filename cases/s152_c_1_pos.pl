@@ -25,5 +25,5 @@ s152_c_2(bob,alice,"2015-01-01","2020-12-31").
 s152_c_3(bob,alice,Year) :- between(2015,2020,Year).
 
 % Test
-:- s152_c_1(bob,alice,2019,_,_).
+:- s152_c_1(bob,alice,2019).
 :- halt.

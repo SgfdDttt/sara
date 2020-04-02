@@ -12,5 +12,6 @@ s2_b(alice,_,_,2017).
 s63(alice,2017,97407).
 
 % Test
-:- \+ s1_a(alice,2017,24056).
+% Individual,Spouse,Single_return_jointly,Year,Taxable_income,Tax
+:- \+ s1_a(alice,2017,_,24056).
 :- halt.

@@ -5,7 +5,7 @@
 % Section 2(b)(1)(A)(i) applies to Bob in 2018. Contradiction
 
 % Facts
-:- discontiguous s152_b_2/3.
+:- discontiguous s152_b_2/4.
 :- [statutes/prolog/init].
 marriage_(alice_and_bob).
 agent_(alice_and_bob,alice).
@@ -41,7 +41,7 @@ marriage_(charlie_and_dan).
 agent_(charlie_and_dan,dan).
 agent_(charlie_and_dan,charlie).
 start_(charlie_and_dan,"2018-02-14").
-s152_b_2(bob,charlie,2018).
+s152_b_2(bob,_,charlie,2018).
 
 % Test
 :- \+ s2_b_1_A_i(bob,_,2018).

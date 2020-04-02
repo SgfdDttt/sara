@@ -15,5 +15,5 @@ agent_(bob_dies,bob).
 start_(bob_dies,"2017-09-16").
 
 % Test
-:- s7703_a_1(alice,_,_,2012).
+:- s7703_a_1(alice,_,_,_,2012).
 :- halt.

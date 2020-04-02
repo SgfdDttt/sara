@@ -15,5 +15,6 @@ end_(alice_makes_money,"2015-12-31").
 s151_c(alice,_,2000,2015).
 
 % Test
-:- s151_d_3_A(alice,2000,1800,2015).
+% Taxpayer,Gross_income,Applicable_amount,Applicable_percentage,Exemption_amount_in,Exemption_amount_out,Year
+:- s151_d_3_A(alice,_,_,_,2000,1800,2015).
 :- halt.

@@ -12,5 +12,5 @@ agent_(alice_and_bob,bob).
 start_(alice_and_bob,"2015-01-01").
 
 % Test
-:- \+ s152_b_2(alice,bob,2015).
+:- \+ s152_b_2(alice,_,bob,2015).
 :- halt.

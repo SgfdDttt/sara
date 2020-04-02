@@ -1,31 +1,39 @@
 %§7703. Determination of marital status
-s7703(Individual,Spouse,Marriage_event,Divorce,Household,Child,Total_cost,Year) :-
+s7703(Individual,Spouse,Marriage,Divorce,Household,Child,Cost,Time_death,Year) :-
     (
         nonvar(Individual);
         nonvar(Spouse)
     ),
     Individual \== Spouse,
-	s7703_a(Individual,Spouse,Marriage_event,Divorce,Year),
-	\+ s7703_b(Individual,Spouse,Household,Child,Total_cost,Year).
+	s7703_a(Individual,Spouse,Marriage,Divorce,Time_death,Year),
+	\+ s7703_b(Individual,Spouse,Household,Child,Cost,Year).
 
 %(a) General rule
-s7703_a(Individual,Spouse,Marriage_event,Divorce,Year) :-
-	s7703_a_1(Individual,Spouse,Marriage_event,Year),
-	\+ s7703_a_2(Marriage_event,Divorce,Year).
+s7703_a(Individual,Spouse,Marriage,Divorce,Time_death,Year) :-
+	s7703_a_1(Individual,Spouse,Marriage,Time_death,Year),
+	\+ s7703_a_2(Individual,Spouse,Marriage,Divorce,Year).
 
 %(1) the determination of whether an individual is married shall be made as of the close of his taxable year; except that if his spouse dies during his taxable year such determination shall be made as of the time of such death; and
-s7703_a_1(Individual,Spouse,Marriage_event,Year) :-
+s7703_a_1(Individual,Spouse,Marriage,Death_time,Year) :-
 	% useful constants
 	last_day_year(Year,Last_day_year),
 	first_day_year(Year,First_day_year),
 	Year1 is Year+1,
 	first_day_year(Year1,First_day_next_year),
 	% main body
-	marriage_(Marriage_event),
-	agent_(Marriage_event,Individual),
-	agent_(Marriage_event,Spouse),
+	marriage_(Marriage),
+	agent_(Marriage,Individual),
+	agent_(Marriage,Spouse),
 	Individual\==Spouse,
-    start_(Marriage_event,Start_marriage),
+    (
+        (
+            \+ start_(Marriage,_),
+            Start_marriage = First_day_year
+        );
+        (
+            start_(Marriage,Start_marriage)
+        )
+    ),
     is_before(Start_marriage,Last_day_year),
 	( % if spouse died during taxable year
 		(
@@ -39,10 +47,10 @@ s7703_a_1(Individual,Spouse,Marriage_event,Year) :-
 			is_before(Start_marriage,Death_time),
 			(
 				( % marriage was still ongoing at death
-					\+ end_(Marriage_event,_)
+					\+ end_(Marriage,_)
 				);
 				( % or ended with death
-					end_(Marriage_event,End_time),
+					end_(Marriage,End_time),
 					is_before(Death_time,End_time)
 				)
 			)
@@ -50,7 +58,7 @@ s7703_a_1(Individual,Spouse,Marriage_event,Year) :-
 		( % otherwise, default behavior: check at end of year
 			( % determining the end date of a marriage:
 				( % if no end date,
-					\+ end_(Marriage_event,_)
+					\+ end_(Marriage,_)
 				) ->
 				(
 					( % if spouse died,
@@ -66,7 +74,7 @@ s7703_a_1(Individual,Spouse,Marriage_event,Year) :-
 					)
 				);
 				( % else take end date
-					end_(Marriage_event,End_time),
+					end_(Marriage,End_time),
 					is_before(First_day_next_year,End_time)
 				)
 			)
@@ -74,9 +82,13 @@ s7703_a_1(Individual,Spouse,Marriage_event,Year) :-
 	).
 
 %(2) an individual legally separated from his spouse under a decree of divorce or of separate maintenance shall not be considered as married.
-s7703_a_2(Marriage_event,Divorce,Year) :-
+s7703_a_2(Individual,Spouse,Marriage,Divorce,Year) :-
+    marriage_(Marriage),
+    agent_(Marriage,Individual),
+    agent_(Marriage,Spouse),
+    Individual\==Spouse,
 	legal_separation_(Divorce),
-	patient_(Divorce,Marriage_event),
+	patient_(Divorce,Marriage),
 	(
 		agent_(Divorce,"decree of divorce");
 		agent_(Divorce,"decree of separate maintenance")
@@ -88,29 +100,30 @@ s7703_a_2(Marriage_event,Divorce,Year) :-
 %(b) Certain married individuals living apart
 
 %For purposes of those provisions of this title which refer to this subsection, if-
-s7703_b(Individual,Spouse,Household,Child,Total_cost,Year) :-
-	s7703_b_1(Individual,Household,Spouse,Year,Child), 
-	s7703_b_2(Individual,Household,Total_cost,Year),
-	s7703_b_3(Spouse,Household,Year).
+s7703_b(Individual,Spouse,Household,Child,Cost,Year) :-
+	s7703_b_1(Individual,_,Household,_,Child,Year), 
+	s7703_b_2(Individual,Household,Cost,Year),
+	s7703_b_3(Individual,Spouse,Household,Year).
 
 
 %(1) an individual who is married (within the meaning of subsection (a)) and who files a separate return maintains as his home a household which constitutes for more than one-half of the taxable year the principal place of abode of a child with respect to whom such individual is entitled to a deduction for the taxable year under section 151,
-s7703_b_1(Individual,Household,Spouse,Year,Child) :-
+s7703_b_1(Individual,Home,Household,Principal_place_abode,Child,Year) :-
 	first_day_year(Year,First_day_year),
 	last_day_year(Year,Last_day_year),
 	\+ (
 		joint_return_(Joint_return),
-		agent_(Joint_return,Spouse),
 		agent_(Joint_return,Individual),
 		start_(Joint_return,First_day_year),
 		end_(Joint_return,Last_day_year)
 	),
-	residence_(Individual_home),
-	agent_(Individual_home,Individual),
-	patient_(Individual_home,Household),
+	residence_(Individual_residence),
+	agent_(Individual_residence,Individual),
+	patient_(Individual_residence,Home),
+    Household=Home,
 	residence_(Child_lives_at_home),
 	agent_(Child_lives_at_home,Child),
-	patient_(Child_lives_at_home,Household),
+	patient_(Child_lives_at_home,Principal_place_abode),
+    Principal_place_abode==Home,
 	start_(Child_lives_at_home,Start_time),
     latest([Start_time,First_day_year],Start),
     (
@@ -125,10 +138,10 @@ s7703_b_1(Individual,Household,Spouse,Year,Child) :-
     duration(First_day_year,Last_day_year,Year_duration),
     Half_year_duration is Year_duration rdiv 2,
 	Duration >= Half_year_duration,
-    s152_a_1(Child,Individual,Year,Household,_). % TODO should this not be 151_c??
+    s152_a_1(Child,Individual,Year).
 
 %(2) such individual furnishes over one-half of the cost of maintaining such household during the taxable year, and
-s7703_b_2(Individual,Household,Total_cost,Year) :-
+s7703_b_2(Individual,Household,Cost,Year) :-
     findall(
 		Payment_amount,
 		(
@@ -167,9 +180,9 @@ s7703_b_2(Individual,Household,Total_cost,Year) :-
 		Payments_all
 	),
 	sum_list(Payments_by_individual,Payment_by_individual),
-	sum_list(Payments_all,Total_cost),
-	Total_cost>0,
-	Ratio is Payment_by_individual rdiv Total_cost,
+	sum_list(Payments_all,Cost),
+	Cost>0,
+	Ratio is Payment_by_individual rdiv Cost,
 	Ratio>=rational(0.5).
 
 %(3) during the last 6 months of the taxable year, such individual's spouse is not a member of such household,
@@ -189,7 +202,8 @@ s7703_b_3_is_member_of_household(Spouse,Household,Day) :-
 		)
 	).
     
-s7703_b_3(Spouse,Household,Year) :-
+s7703_b_3(Individual,Spouse,Household,Year) :-
+    s7703_a(Individual,Spouse,_,_,_,Year),
     findall(
         Day_offset,
         (

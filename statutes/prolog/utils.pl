@@ -268,7 +268,7 @@ gross_income(Person,Year,Gross_income) :-
     last_day_year(Year,Last_day_year),
     (
         ( % if the individual is filing a joint return with his spouse, sum both incomes
-            s7703(Person,Spouse,_,_,_,_,_,Year),
+            s7703(Person,Spouse,_,_,_,_,_,_,Year),
             joint_return_(Joint_return),
             agent_(Joint_return,Person),
             agent_(Joint_return,Spouse),
@@ -280,7 +280,7 @@ gross_income(Person,Year,Gross_income) :-
         );
         ( % otherwise, it's just the individual's income
             \+ (
-                s7703(Person,Spouse,_,_,_,_,_,Year),
+                s7703(Person,Spouse,_,_,_,_,_,_,Year),
                 joint_return_(Joint_return),
                 agent_(Joint_return,Person),
                 agent_(Joint_return,Spouse),
@@ -325,9 +325,9 @@ gross_income_individual(Person,Year,Gross_income) :-
 % compute tax owed by a Person for a given taxable year
 tax(Person,Year,Tax_amount) :-
     (
-        s1(Person,Year,Income_tax);
+        s1(Person,Year,_,Income_tax);
         (
-            \+ s1(Person,Year,_),
+            \+ s1(Person,Year,_,_),
             Income_tax is 0
         )
     ),

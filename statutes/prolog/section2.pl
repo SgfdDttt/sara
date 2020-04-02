@@ -148,12 +148,12 @@ s2_b(Taxpayer,Household,Dependent,Year) :-
 %(1) In general
 
 %An individual shall be considered a head of a household if, and only if, such individual is not married at the close of his taxable year, is not a surviving spouse (as defined in subsection (a)), and either-
-s2_b_1(Taxpayer,Household,Dependent,Year) :-
+s2_b_1(Individual,Household,Dependent,Year) :-
     \+ ( % "such individual is not married"
         marriage_(Marriage),
-        agent_(Marriage,Taxpayer),
+        agent_(Marriage,Individual),
         agent_(Marriage,Spouse),
-        Spouse \== Taxpayer,
+        Spouse \== Individual,
         start_(Marriage,Start_marriage),
         last_day_year(Year,Last_day_year),
         is_before(Start_marriage,Last_day_year),
@@ -162,7 +162,7 @@ s2_b_1(Taxpayer,Household,Dependent,Year) :-
                 death_(Spouse_dies),
                 agent_(Spouse_dies,Spouse),
                 (
-                    s2_b_2_C(Taxpayer,Marriage,Spouse,Year); % spouse died during the year
+                    s2_b_2_C(Individual,Marriage,Spouse,Year); % spouse died during the year
                     (
                         start_(Spouse_dies,Death_time), % spouse died after year considered
                         is_before(Last_day_year,Death_time)
@@ -188,21 +188,21 @@ s2_b_1(Taxpayer,Household,Dependent,Year) :-
             )
         ),
         \+ s2_b_2_A(Marriage,Year),
-        \+ s2_b_2_B(Taxpayer,Spouse,Year)
+        \+ s2_b_2_B(Individual,Spouse,Year)
     ),
-    \+ s2_a(Taxpayer,_,_,_,Year),
+    \+ s2_a(Individual,_,_,_,Year),
     (
-        s2_b_1_A(Taxpayer,Household,Dependent,Year);
-        s2_b_1_B(Taxpayer,Household,Dependent,Year)
+        s2_b_1_A(Individual,Household,Dependent,Year);
+        s2_b_1_B(Individual,Household,Dependent,Year)
     ).
 
 %(A) maintains as his home a household which constitutes for more than one-half of such taxable year the principal place of abode, as a member of such household, of-
-s2_b_1_A(Taxpayer,Household,Individual,Year) :-
+s2_b_1_A(Individual,Household,Dependent,Year) :-
     % who maintains as his home a household
     first_day_year(Year,First_day_year),
     last_day_year(Year,Last_day_year),
     residence_(Taxpayer_residence),
-    agent_(Taxpayer_residence,Taxpayer),
+    agent_(Taxpayer_residence,Individual),
     patient_(Taxpayer_residence,Household),
     (
         start_(Taxpayer_residence,Start_taxpayer_residence)
@@ -218,10 +218,10 @@ s2_b_1_A(Taxpayer,Household,Individual,Year) :-
     ;
         \+ end_(Taxpayer_residence,_)
     ),
-    s7703_b_2(Taxpayer,Household,_,Year), % such individual furnishes over one-half of the cost of maintaining such household during the taxable year
+    s7703_b_2(Individual,Household,_,Year), % such individual furnishes over one-half of the cost of maintaining such household during the taxable year
     % which constitutes for more than one-half of such taxable year...
     residence_(Individual_residence),
-    agent_(Individual_residence,Individual),
+    agent_(Individual_residence,Dependent),
     patient_(Individual_residence,Household),
     (
         (
@@ -246,13 +246,13 @@ s2_b_1_A(Taxpayer,Household,Individual,Year) :-
     Half_year_duration is Year_duration rdiv 2,
     Duration_individual_residence >= Half_year_duration,
     (
-        s2_b_1_A_i(Taxpayer,Individual,Year);
-        s2_b_1_A_ii(Taxpayer,Individual,Year)
+        s2_b_1_A_i(Individual,Dependent,Year);
+        s2_b_1_A_ii(Individual,Dependent,Year)
     ).
 
 %(i) a qualifying child of the individual (as defined in section 152(c)), but not if such child-
 s2_b_1_A_i(Individual,Child,Year) :-
-    s152_c(Child,Individual,Year,_,_),
+    s152_c(Child,Individual,Year),
     \+ (
         s2_b_1_A_i_I(Child,Year),
         s2_b_1_A_i_II(Child,Individual,Year)
@@ -260,11 +260,11 @@ s2_b_1_A_i(Individual,Child,Year) :-
 
 %(I) is married at the close of the taxpayer's taxable year, and
 s2_b_1_A_i_I(Child,Year) :-
-    s7703(Child,_,_,_,_,_,_,Year).
+    s7703(Child,_,_,_,_,_,_,_,Year).
 
 %(II) is not a dependent of such individual by reason of section 152(b)(2), or
 s2_b_1_A_i_II(Child,Individual,Year) :-
-    \+ s152_b_2(Child,Individual,Year).
+    \+ s152_b_2(Child,_,Individual,Year).
 
 %(ii) any other person who is a dependent of the taxpayer, if the taxpayer is entitled to a deduction for the taxable year for such person under section 151, or
 s2_b_1_A_ii(Taxpayer,Person,Year) :-
@@ -384,47 +384,47 @@ s2_b_3(Taxpayer,Dependent,Year) :-
 
 
 %(A) if at any time during the taxable year he is a nonresident alien; or
-s2_b_3_A(Individual,Year) :-
+s2_b_3_A(Taxpayer,Year) :-
     first_day_year(Year,First_day_year),
     last_day_year(Year,Last_day_year),
-    nonresident_alien_(Individual_is_nra),
-    agent_(Individual_is_nra,Individual),
+    nonresident_alien_(Taxpayer_is_nra),
+    agent_(Taxpayer_is_nra,Taxpayer),
     (
         (
-            \+ start_(Individual_is_nra,_)
+            \+ start_(Taxpayer_is_nra,_)
         );
         (
-            start_(Individual_is_nra,Start_nra),
+            start_(Taxpayer_is_nra,Start_nra),
             is_before(Start_nra,Last_day_year)
        )
     ),
     (
         (
-            \+ end_(Individual_is_nra,_)
+            \+ end_(Taxpayer_is_nra,_)
         );
         (
-            end_(Individual_is_nra,Stop_nra),
+            end_(Taxpayer_is_nra,Stop_nra),
             is_before(First_day_year,Stop_nra)
         )
     ).
 
 %(B) by reason of an individual who would not be a dependent for the taxable year but for subparagraph (H) of section 152(d)(2).
-s2_b_3_B(Taxpayer,Dependent,Year) :-
+s2_b_3_B(Taxpayer,Individual,Year) :-
     first_day_year(Year,First_day),
     last_day_year(Year,Last_day),
-    \+ s152_b(Dependent,Taxpayer,Year),
-    \+ s152_a_1(Dependent,Taxpayer,Year,_,_),
-    s152_d_1_B(Dependent,Year),
-    s152_d_1_D(Dependent,Year),
+    \+ s152_b(Individual,Taxpayer,Year),
+    \+ s152_a_1(Individual,Taxpayer,Year),
+    s152_d_1_B(Individual,Year),
+    s152_d_1_D(Individual,Year),
     \+ (
         (
-            s152_d_2_A(Dependent,Taxpayer,Start_relationship,End_relationship);
-            s152_d_2_B(Dependent,Taxpayer,Start_relationship,End_relationship);
-            s152_d_2_C(Dependent,Taxpayer,Start_relationship,End_relationship);
-            s152_d_2_D(Dependent,Taxpayer,Start_relationship,End_relationship);
-            s152_d_2_E(Dependent,Taxpayer,Start_relationship,End_relationship);
-            s152_d_2_F(Dependent,Taxpayer,Start_relationship,End_relationship);
-            s152_d_2_G(Dependent,Taxpayer,Start_relationship,End_relationship)
+            s152_d_2_A(Individual,Taxpayer,Start_relationship,End_relationship);
+            s152_d_2_B(Individual,Taxpayer,Start_relationship,End_relationship);
+            s152_d_2_C(Individual,Taxpayer,Start_relationship,End_relationship);
+            s152_d_2_D(Individual,Taxpayer,Start_relationship,End_relationship);
+            s152_d_2_E(Individual,Taxpayer,_,Start_relationship,End_relationship);
+            s152_d_2_F(Individual,Taxpayer,_,Start_relationship,End_relationship);
+            s152_d_2_G(Individual,Taxpayer,Start_relationship,End_relationship)
         ),
         (
             var(Start_relationship);
@@ -435,7 +435,7 @@ s2_b_3_B(Taxpayer,Dependent,Year) :-
             is_before(End_relationship,Last_day)
         )
     ),
-    s152_d_2_H(Dependent,Taxpayer,Year,StartH,EndH),
+    s152_d_2_H(Individual,Taxpayer,Year,_,StartH,EndH),
     (
         var(StartH);
         is_before(StartH,First_day)

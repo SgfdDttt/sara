@@ -18,7 +18,8 @@ s63_a(Taxpayer,Year,Taxable_income) :-
 	s68(Taxpayer,Total_deduction,Total_deduction_reduced,Year),
 	s151(Taxpayer,Exemption_151,_,_,Year),
 	Total_deduction_allowed is Total_deduction_reduced + Exemption_151,
-    Taxable_income is Gross_income-Total_deduction_allowed.
+    Taxable_income_tmp is Gross_income - Total_deduction_allowed,
+	Taxable_income is max(Taxable_income_tmp,0).
 
 %(b) Individuals who do not itemize their deductions
 
@@ -28,72 +29,73 @@ s63_b(Individual,Year,Taxable_income) :-
     gross_income(Individual,Year,Gross_income),
     s63_b_1(Individual,Year,Amount1),
     s63_b_2(Individual,Year,Amount2),
-    Taxable_income is Gross_income - Amount1 - Amount2.
+    Taxable_income_tmp is Gross_income - Amount1 - Amount2,
+	Taxable_income is max(Taxable_income_tmp,0).
 
 %(1) the standard deduction, and
-s63_b_1(Taxpayer,Year,Amount) :-
-    s63_c(Taxpayer,Year,Amount).
+s63_b_1(Taxpayer,Year,Standard_deduction) :-
+    s63_c(Taxpayer,Year,Standard_deduction).
 
 %(2) the deduction for personal exemptions provided in section 151.
-s63_b_2(Taxpayer,Year,Total_exemption) :-
-    s151(Taxpayer,Total_exemption,_,_,Year).
+s63_b_2(Taxpayer,Year,Deduction) :-
+    s151(Taxpayer,Deduction,_,_,Year).
 
 %(c) Standard deduction
 
 %For purposes of this subtitle-
-s63_c(Taxpayer,Year,Amount) :- % exceptions are already dealt with earlier
-    s63_c_1(Taxpayer,Year,Amount).
+s63_c(Taxpayer,Year,Standard_deduction) :- % exceptions are already dealt with earlier
+    s63_c_1(Taxpayer,Year,Standard_deduction).
 
 %(1) In general
 
 %Except as otherwise provided in this subsection, the term "standard deduction" means the sum of-
-s63_c_1(Taxpayer,Year,Amount) :-
+s63_c_1(Taxpayer,Year,Standard_deduction) :-
     (
-        s63_c_6(Taxpayer,_,_,Year,Amount);
+        s63_c_6(Taxpayer,_,_,Year,Standard_deduction);
         (
            \+ s63_c_6(Taxpayer,_,_,Year,_),
             s63_c_1_A(Taxpayer,Year,Basic_deduction),
             s63_c_1_B(Taxpayer,Year,Additional_deduction),
-            Amount is Basic_deduction+Additional_deduction
+            Standard_deduction is Basic_deduction+Additional_deduction
         )
     ).
 
 %(A) the basic standard deduction, and
-s63_c_1_A(Taxpayer,Year,Amount) :-
+s63_c_1_A(Taxpayer,Year,Basic_standard_deduction) :-
     s63_c_2(Taxpayer,Year,Basic_amount),
     (
         (
             s63_c_5(Taxpayer,_,Year,Max_amount),
-            Amount is min(Basic_amount,Max_amount)
+            Basic_standard_deduction is min(Basic_amount,Max_amount)
         );
         (
             \+ s63_c_5(Taxpayer,_,Year,_),
-            Amount is Basic_amount
+            Basic_standard_deduction is Basic_amount
         )
     ).
 
 %(B) the additional standard deduction.
-s63_c_1_B(Taxpayer,Year,Amount) :-
-    s63_c_3(Taxpayer,Amount,Year).
+s63_c_1_B(Taxpayer,Year,Additional_standard_deduction) :-
+    s63_c_3(Taxpayer,Additional_standard_deduction,Year).
 
 %(2) Basic standard deduction
 
 %For purposes of paragraph (1), the basic standard deduction is-
-s63_c_2(Taxpayer,Year,Amount) :-
+s63_c_2(Taxpayer,Year,Basic_standard_deduction) :-
     (
         s63_c_2_A(Taxpayer,Year,Multiplier),
         \+ s63_c_2_B(Taxpayer,Year,_),
         s63_c_2_C(Year,Default_amount),
-        Amount is Multiplier*Default_amount
+        Basic_standard_deduction is Multiplier*Default_amount
     );
     (
         \+ s63_c_2_A(Taxpayer,Year,_),
-        s63_c_2_B(Taxpayer,Year,Amount)
+        s63_c_2_B(Taxpayer,Year,Basic_standard_deduction)
     );
     (
         \+ s63_c_2_A(Taxpayer,Year,_),
         \+ s63_c_2_B(Taxpayer,Year,_),
-        s63_c_2_C(Year,Amount)
+        s63_c_2_C(Year,Basic_standard_deduction)
     ).
 
 %(A) 200 percent of the dollar amount in effect under subparagraph (C) for the taxable year in the case of-
@@ -106,7 +108,7 @@ s63_c_2_A(Taxpayer,Year,Multiplier) :-
 
 %(i) a joint return, or
 s63_c_2_A_i(Taxpayer,Year) :-
-    s7703(Taxpayer,Spouse,_,_,_,_,_,Year),
+    s7703(Taxpayer,Spouse,_,_,_,_,_,_,Year),
     joint_return_(Joint_return),
     agent_(Joint_return,Taxpayer),
     agent_(Joint_return,Spouse),
@@ -120,29 +122,29 @@ s63_c_2_A_ii(Taxpayer,Year) :-
     s2_a(Taxpayer,_,_,_,Year).
 
 %(B) $4,400 in the case of a head of household (as defined in section 2(b)), or
-s63_c_2_B(Taxpayer,Year,Amount) :-
+s63_c_2_B(Taxpayer,Year,Basic_standard_deduction) :-
     s2_b(Taxpayer,_,_,Year),
     (
-        s63_c_7_i(Year,Amount);
+        s63_c_7_i(Year,Basic_standard_deduction);
         (
             \+ s63_c_7_i(Year,_),
-            Amount is 4400
+            Basic_standard_deduction is 4400
         )
     ).
 
 %(C) $3,000 in any other case.
-s63_c_2_C(Year,Amount) :-
-    s63_c_7_ii(Year,Amount);
+s63_c_2_C(Year,Basic_standard_deduction) :-
+    s63_c_7_ii(Year,Basic_standard_deduction);
     (
         \+ s63_c_7_ii(Year,_),
-        Amount is 3000
+        Basic_standard_deduction is 3000
     ).
 
 %(3) Additional standard deduction for aged and blind
 
 %For purposes of paragraph (1), the additional standard deduction is the sum of each additional amount to which the taxpayer is entitled under subsection (f).
-s63_c_3(Taxpayer,Total_amount,Year) :-
-    s63_f(Taxpayer,Total_amount,Year).
+s63_c_3(Taxpayer,Additional_standard_deduction,Year) :-
+    s63_f(Taxpayer,Additional_standard_deduction,Year).
 
 %(5) Limitation on basic standard deduction in the case of certain dependents
 
@@ -151,42 +153,42 @@ s63_c_3(Taxpayer,Total_amount,Year) :-
 %(A) $500, or
 
 %(B) the sum of $250 and such individual's earned income.
-s63_c_5(Individual,Other_taxpayer,Year,Max_amount) :-
+s63_c_5(Individual,Another_taxpayer,Year,Basic_standard_deduction) :-
     (
-        s151_b_applies(Other_taxpayer,Individual,Year);
-        s151_c_applies(Other_taxpayer,Individual,Year)
+        s151_b_applies(Another_taxpayer,Individual,Year);
+        s151_c_applies(Another_taxpayer,Individual,Year)
     ),
     Amount1 is 500,
     gross_income(Individual,Year,Gross_income),
     Amount2 is 250+Gross_income,
-    Max_amount is max(Amount1,Amount2).
+    Basic_standard_deduction is max(Amount1,Amount2).
 
 %(6) Certain individuals, etc., not eligible for standard deduction
-s63_c_6(Taxpayer,Spouse,Deduction_itemization,Year,Amount) :-
+s63_c_6(Individual,Spouse,Deduction_itemization,Year,Standard_deduction) :-
     (
-        s63_c_6_A(Taxpayer,Spouse,Deduction_itemization,Year);
-        s63_c_6_B(Taxpayer,Year);
-        s63_c_6_D(Taxpayer,Year)
+        s63_c_6_A(Individual,Spouse,Deduction_itemization,Year);
+        s63_c_6_B(Individual,Year);
+        s63_c_6_D(Individual,Year)
     ),
-    Amount is 0.
+    Standard_deduction is 0.
 
 %In the case of-
 
 %(A) a married individual filing a separate return where either spouse itemizes deductions,
-s63_c_6_A(Taxpayer,Spouse,Deduction_itemization,Year) :-
-   s7703(Taxpayer,Spouse,_,_,_,_,_,Year), 
+s63_c_6_A(Individual,Spouse,Deduction_itemization,Year) :-
+   s7703(Individual,Spouse,_,_,_,_,_,_,Year), 
    first_day_year(Year,First_day_year),
    last_day_year(Year,Last_day_year),
    \+ (
        joint_return_(Joint_return),
-       agent_(Joint_return,Taxpayer),
+       agent_(Joint_return,Individual),
        agent_(Joint_return,Spouse),
        start_(Joint_return,First_day_year),
        end_(Joint_return,Last_day_year)
    ),
    deduction_(Deduction_itemization),
    (
-       agent_(Deduction_itemization,Taxpayer);
+       agent_(Deduction_itemization,Individual);
        agent_(Deduction_itemization,Spouse)
    ),
    start_(Deduction_itemization,Start),
@@ -194,9 +196,9 @@ s63_c_6_A(Taxpayer,Spouse,Deduction_itemization,Year) :-
    is_before(Start,Last_day_year).
 
 %(B) a nonresident alien individual, or
-s63_c_6_B(Taxpayer,Year) :-
+s63_c_6_B(Individual,Year) :-
     nonresident_alien_(Taxpayer_is_nra),
-    agent_(Taxpayer_is_nra,Taxpayer),
+    agent_(Taxpayer_is_nra,Individual),
     first_day_year(Year,First_day_year),
     last_day_year(Year,Last_day_year),
     (
@@ -266,7 +268,7 @@ s63_c_7_ii(Year,Amount) :-
 %(d) Itemized deductions
 
 %For purposes of this subtitle, the term "itemized deductions" means the deductions allowable under this chapter other than-
-s63_d(Taxpayer,Amounts,Total_amount,Year) :-
+s63_d(Taxpayer,Amounts,Itemized_deductions,Year) :-
 	first_day_year(Year,First),
 	last_day_year(Year,Last),
 	findall(
@@ -283,16 +285,16 @@ s63_d(Taxpayer,Amounts,Total_amount,Year) :-
 	),
 	length(Amounts,L),
 	L>0,
-	sum_list(Amounts,Total_amount).
+	sum_list(Amounts,Itemized_deductions).
 
 %(1) the deductions allowable in arriving at adjusted gross income, and
 
 %(2) the deduction for personal exemptions provided by section 151.
-s63_d_2(Taxpayer,Individuals,Exemptions,Year) :-
-    s151(Taxpayer,_,Individuals,Exemptions,Year).
+s63_d_2(Taxpayer,Individuals,Personal_exemptions,Year) :-
+    s151(Taxpayer,_,Individuals,Personal_exemptions,Year).
 
 %(f) Aged or blind additional amounts
-s63_f(Taxpayer,Total_amount,Year) :-
+s63_f(Taxpayer,Additional_amounts,Year) :-
     s63_f_1(Taxpayer,Year,Counts_aged),
     s63_f_2(Taxpayer,Year,Counts_blind),
     (
@@ -302,7 +304,7 @@ s63_f(Taxpayer,Total_amount,Year) :-
             Amount is 600
         )
     ),
-    Total_amount is (Counts_blind+Counts_aged)*Amount.
+    Additional_amounts is (Counts_blind+Counts_aged)*Amount.
 
 %(1) Additional amounts for the aged
 
@@ -326,7 +328,7 @@ s63_f_1_A(Taxpayer,Year) :-
 
 %(B) for the spouse of the taxpayer if the spouse has attained age 65 before the close of the taxable year and an additional exemption is allowable to the taxpayer for such spouse under section 151(b).
 s63_f_1_B(Taxpayer,Year) :-
-    s7703(Taxpayer,Spouse,_,_,_,_,_,Year),
+    s7703(Taxpayer,Spouse,_,_,_,_,_,_,Year),
     birth_(Spouse_birth),
     agent_(Spouse_birth,Spouse),
     start_(Spouse_birth,Day_of_birth),
@@ -356,7 +358,7 @@ s63_f_2_A(Taxpayer,Year) :-
 
 %(B) for the spouse of the taxpayer if the spouse is blind as of the close of the taxable year and an additional exemption is allowable to the taxpayer for such spouse under section 151(b).
 s63_f_2_B(Taxpayer,Year) :-
-    s7703(Taxpayer,Spouse,_,_,_,_,_,Year),
+    s7703(Taxpayer,Spouse,_,_,_,_,_,_,Year),
     blindness_(Spouse_is_blind),
     agent_(Spouse_is_blind,Spouse),
     start_(Spouse_is_blind,Start_time),
@@ -369,9 +371,9 @@ s63_f_2_B(Taxpayer,Year) :-
 %(3) Higher amount for certain unmarried individuals
 
 %In the case of an individual who is not married and is not a surviving spouse, paragraphs (1) and (2) shall be applied by substituting "$750" for "$600".
-s63_f_3(Taxpayer,Year,Amount) :-
-    \+ s7703(Taxpayer,_,_,_,_,_,_,Year),
-    \+ s2_a(Taxpayer,_,_,_,Year),
+s63_f_3(Individual,Year,Amount) :-
+    \+ s7703(Individual,_,_,_,_,_,_,_,Year),
+    \+ s2_a(Individual,_,_,_,Year),
     Amount is 750.
 
 %(g) Marital status

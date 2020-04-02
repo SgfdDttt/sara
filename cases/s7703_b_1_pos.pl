@@ -38,5 +38,5 @@ end_(Event,End_day) :- alice_household_maintenance(_,Event,_,End_day).
 s151_c_applies(alice,charlie,Year) :- between(2017,2019,Year).
 
 % Test
-:- s7703_b_1(alice,_,_,2018,_).
+:- s7703_b_1(alice,_,_,_,_,2018).
 :- halt.

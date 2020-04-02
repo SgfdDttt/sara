@@ -5,10 +5,10 @@
 % Alice and her spouse have to pay $2600 in taxes for the year 2017 under section 1(c). Contradiction
 
 % Facts
-:- discontiguous s7703/8.
+:- discontiguous s7703/9.
 :- discontiguous s63/3.
 :- [statutes/prolog/init].
-s7703(alice,spouse,_,_,_,_,_,2017).
+s7703(alice,spouse,_,_,_,_,_,_,2017).
 joint_return_(joint_return).
 agent_(joint_return,alice).
 agent_(joint_return,spouse).
@@ -17,5 +17,5 @@ end_(joint_return,"2017-12-31").
 s63(alice,2017,17330).
 
 % Test
-:- \+ s1_c(alice,2017,2600).
+:- \+ s1_c(alice,2017,_,2600).
 :- halt.

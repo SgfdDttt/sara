@@ -15,5 +15,5 @@ end_(alice_makes_money,"2015-12-31").
 s68_b(alice,2015,250000).
 
 % Test
-:- s151_d_3_B(22,alice,_,2015).
+:- s151_d_3_B(22,alice,_,2015,_).
 :- halt.

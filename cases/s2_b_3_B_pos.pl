@@ -5,7 +5,7 @@
 % Section 2(b)(3)(B) applies to Bob as the taxpayer and Charlie as the individual in 2018. Entailment
 
 % Facts
-:- discontiguous s152_d_2_H/5.
+:- discontiguous s152_d_2_H/6.
 :- [statutes/prolog/init].
 marriage_(alice_and_bob).
 agent_(alice_and_bob,alice).
@@ -32,7 +32,7 @@ amount_(Event,1) :- bob_household_maintenance(_,Event,_,_).
 purpose_(Event,bob_s_house) :- bob_household_maintenance(_,Event,_,_).
 start_(Event,Start_day) :- bob_household_maintenance(_,Event,Start_day,_).
 end_(Event,End_day) :- bob_household_maintenance(_,Event,_,End_day).
-s152_d_2_H(charlie,bob,Year,Start_day,End_day) :-
+s152_d_2_H(charlie,bob,Year,_,Start_day,End_day) :-
     between(2015,2019,Year),first_day_year(Year,Start_day),last_day_year(Year,End_day).
 bob_income(Year,Event,Start_day,End_day) :-
     between(2015,2019,Year),

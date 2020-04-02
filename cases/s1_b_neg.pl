@@ -6,11 +6,11 @@
 
 % Facts
 :- discontiguous s63/3.
-:- discontiguous s7703/8.
+:- discontiguous s7703/9.
 :- [statutes/prolog/init].
-s7703(alice,spouse,_,_,_,_,_,2017).
+s7703(alice,spouse,_,_,_,_,_,_,2017).
 s63(alice,2017,554313).
 
 % Test
-:- \+ s1_b(alice,2017,207772).
+:- \+ s1_b(alice,2017,_,207772).
 :- halt.

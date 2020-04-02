@@ -23,5 +23,5 @@ start_(bob_and_charlie,"2018-10-23").
 s152_c_2(bob,alice,"2015-01-01","2020-12-31").
 
 % Test
-:- \+ s152_c_1(bob,alice,2019,_,_).
+:- \+ s152_c_1(bob,alice,2019).
 :- halt.

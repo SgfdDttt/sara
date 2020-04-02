@@ -17,5 +17,5 @@ start_(alice_and_bob_joint_return,"2015-01-01").
 end_(alice_and_bob_joint_return,"2015-12-31").
 
 % Test
-:- s152_b_2(alice,_,2015).
+:- s152_b_2(alice,_,_,2015).
 :- halt.

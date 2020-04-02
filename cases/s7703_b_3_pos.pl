@@ -40,5 +40,5 @@ start_(bob_lives_alice_house,"2017-09-16").
 end_(bob_lives_alice_house,"2018-02-10").
 
 % Test
-:- s7703_b_3(alice,home,2018).
+:- s7703_b_3(alice,_,home,2018).
 :- halt.
