@@ -68,10 +68,11 @@ def find_statutes(statutes,questions):
 
 class RelationalModel(nn.Module):
     def __init__(self,word_embeddings_file=None,unigram_counts_file=None,num_layers=None,num_units=None,
-            use_statutes=True, use_context=True, smoothing_param=1e-3, tax_statistics=None):
+            use_statutes=True, use_context=True, smoothing_param=1e-3, tax_statistics=None, use_heuristic=True):
         # model that computes Arora+17 representation, which is then fed to neural net
         super(RelationalModel,self).__init__()
         if use_statutes:
+            self.use_heuristic=use_heuristic
             assert use_context
         logging.debug('load word embeddings')
         self.unigram_counts_file=unigram_counts_file
@@ -197,38 +198,60 @@ class RelationalModel(nn.Module):
                 dim=0) # batch_size x dim
         batch_size=question_embeddings.size(0)
         if self.use_statutes:
-            relevant_statutes=find_statutes(statutes,question)
-            input_question=[]
-            for q in question:
-                if 'how much tax' in q.lower():
-                    new_question=q
+            if not self.use_heuristic:
+                statute_embeddings=torch.stack([self.embed_sentence(x) for x in statutes],
+                        dim=0) # num_statutes x dim
+                num_statutes=statute_embeddings.size(0)
+                question_rep=torch.unsqueeze(question_embeddings,dim=1).expand(-1,num_statutes,-1)
+                statute_rep=torch.unsqueeze(statute_embeddings,dim=0).expand(batch_size,-1,-1)
+                question_x_statute=torch.cat([question_rep,statute_rep,question_rep*statute_rep, \
+                        torch.abs(question_rep-statute_rep)], dim=2) # batch_size x num_statutes x 4*dim
+                if self.use_neural_net:
+                    question_x_statute=torch.reshape(question_x_statute,(batch_size*num_statutes,-1))
+                    neural_net_output=self.neural_net(question_x_statute)
+                    neural_net_output=torch.reshape(neural_net_output,(batch_size,num_statutes,-1))
+                    representations=neural_net_output[:,:,:-1]
+                    weights=torch.sigmoid(neural_net_output[:,:,-1])
                 else:
-                    if 'section' in q:
-                        split_key='section '
-                    elif 'Section' in q:
-                        split_key='Section '
-                    elif 'sec_' in q:
-                        split_key='sec_'
-                    new_question=q.split(split_key)[0] + 'this ' \
-                            + ' '.join(q.split(split_key)[1].split(' ')[1:])
-                    new_question=new_question.strip(' ')
-                input_question.append(q)
-            if context is not None:
-                input_question=[a+' '+b for a,b in zip(context,input_question)] 
-            question_embeddings=torch.stack([self.embed_sentence(iq) for iq in input_question],
-                    dim=0) # batch_size x dim
-            statute_embeddings=torch.stack([self.embed_sentence(x) for x in relevant_statutes],
-                    dim=0) # num_statutes x dim
-            question_x_statute=torch.cat([question_embeddings,statute_embeddings, \
-                    question_embeddings*statute_embeddings, \
-                    torch.abs(question_embeddings-statute_embeddings)], \
-                    dim=1) # batch_size x num_statutes x 4*dim
-            if self.use_neural_net:
-                neural_net_output=self.neural_net(question_x_statute)
-                representations=neural_net_output[:,:-1]
+                    representations=question_x_statute
+                    weights=0.5*(1+nn.functional.cosine_similarity(
+                        torch.unsqueeze(question_embeddings,dim=1).expand(-1,num_statutes,-1),
+                        torch.unsqueeze(statute_embeddings,dim=0).expand(batch_size,-1,-1),
+                        dim=2))
+                statute_representation=torch.sum(representations*torch.unsqueeze(weights,dim=2),dim=1)
             else:
-                representations=question_x_statute
-            statute_representation=representations
+                relevant_statutes=find_statutes(statutes,question)
+                input_question=[]
+                for q in question:
+                    if 'how much tax' in q.lower():
+                        new_question=q
+                    else:
+                        if 'section' in q:
+                            split_key='section '
+                        elif 'Section' in q:
+                            split_key='Section '
+                        elif 'sec_' in q:
+                            split_key='sec_'
+                        new_question=q.split(split_key)[0] + 'this ' \
+                                + ' '.join(q.split(split_key)[1].split(' ')[1:])
+                        new_question=new_question.strip(' ')
+                    input_question.append(q)
+                if context is not None:
+                    input_question=[a+' '+b for a,b in zip(context,input_question)] 
+                question_embeddings=torch.stack([self.embed_sentence(iq) for iq in input_question],
+                        dim=0) # batch_size x dim
+                statute_embeddings=torch.stack([self.embed_sentence(x) for x in relevant_statutes],
+                        dim=0) # num_statutes x dim
+                question_x_statute=torch.cat([question_embeddings,statute_embeddings, \
+                        question_embeddings*statute_embeddings, \
+                        torch.abs(question_embeddings-statute_embeddings)], \
+                        dim=1) # batch_size x num_statutes x 4*dim
+                if self.use_neural_net:
+                    neural_net_output=self.neural_net(question_x_statute)
+                    representations=neural_net_output[:,:-1]
+                else:
+                    representations=question_x_statute
+                statute_representation=representations
             logits=self.predictor(statute_representation)
         else:
             logits=self.predictor(question_embeddings)
@@ -286,13 +309,13 @@ class QuestionModel(nn.Module):
             assert context is not None
             input_dicts = [\
                 self.tokenizer.encode_plus(x, text_pair=y, add_special_tokens=True, \
-                max_length=self.max_length) \
+                truncation_strategy='only_first', max_length=self.max_length) \
                 for x,y in zip(context,question)]
         else:
             assert context is None
             input_dicts = [\
                 self.tokenizer.encode_plus(x, add_special_tokens=True, \
-                max_length=self.max_length) \
+                truncation_strategy='only_first', max_length=self.max_length) \
                 for x in question]
         input_ids=[x['input_ids'] for x in input_dicts]
         token_type_ids=[x['token_type_ids'] for x in input_dicts]
@@ -325,8 +348,9 @@ class QuestionModel(nn.Module):
     
 class StatuteModel(nn.Module):
     def __init__(self,pretrained_model='bert-base-uncased',
-            tokenizer='bert-base-uncased',max_length=512,
-            tax_statistics=None):
+            tokenizer='bert-base-uncased',max_length=512,sample_size=16,
+            annealing_rate=None,pooling_function='sigmoid',tax_statistics=None,
+            use_heuristic=True):
         super(StatuteModel, self).__init__()
         self.pretrained_model=pretrained_model
         # BERT base
@@ -347,11 +371,20 @@ class StatuteModel(nn.Module):
         torch.nn.init.xavier_uniform_(self.predictor.weight)
         torch.nn.init.zeros_(self.predictor.bias)
         # number of statutes in the softmax
+        self.use_heuristic=use_heuristic # if True, find the most relevant statute using string matching
+        if self.use_heuristic:
+            self.sample_size=1
+        else:
+            self.sample_size=sample_size
         if isinstance(tokenizer,str):
             self.tokenizer=BertTokenizer.from_pretrained(tokenizer)
         else:
             self.tokenizer=tokenizer
         self.max_length=max_length
+        if pooling_function=='sigmoid':
+            self.pooling_function=nn.Sigmoid()
+        elif pooling_function=='softmax':
+            self.pooling_function=nn.Softmax(dim=-1)
         self.gpu=False
 
     def cuda(self):
@@ -384,7 +417,7 @@ class StatuteModel(nn.Module):
                     triples.append((s,c,q))
             input_dicts = [\
                 self.tokenizer.encode_plus(s, text_pair=c+' '+q, add_special_tokens=True, \
-                max_length=self.max_length) for s,c,q in triples]
+                truncation_strategy='only_first',max_length=self.max_length) for s,c,q in triples]
             input_ids=[x['input_ids'] for x in input_dicts]
             token_type_ids=[x['token_type_ids'] for x in input_dicts]
             input_mask = [[1]*len(x) for x in input_ids]
@@ -421,9 +454,36 @@ class StatuteModel(nn.Module):
             assert len(a)==len(statutes)
         return activations
 
+    def sample(self,activations,temperature=0):
+        logging.debug('calling self.sample')
+        # activations has size batch x num_statutes
+        # output has size batch x sample_size and is just indices of statutes
+        # epoch is 0-based indexing
+        assert temperature>=0
+        output=[ [] for _ in activations ]
+        for ii,a in enumerate(activations):
+            if temperature>0:
+                act=torch.FloatTensor(a)/temperature
+                with torch.no_grad():
+                    act=self.pooling_function(act)
+                act=act+1e-8/act.size(0) # avoid zero probs
+                probs=act/act.sum()
+                samples=np.random.choice(len(a),size=self.sample_size,replace=False,p=probs.numpy())
+            else:
+                samples=np.argsort(a)[-self.sample_size:]
+            output[ii]=samples
+        return output
+
     def forward(self,statutes=None,question=None,context=None,grad=False,output_is_numerical=None,temperature=0):
-        samples=find_statutes(statutes,question)
-        assert len(samples)==len(question)
+        if not self.use_heuristic:
+            activations=self.preprocess(statutes,question,context)
+            if grad: # means we're in training mode
+                samples=self.sample(activations,temperature)
+            else: # match eval conditions
+                samples=self.sample(activations,0) # batch x num_samples
+        else:
+            samples=find_statutes(statutes,question)
+            assert len(samples)==len(question)
         assert len(question)==len(context) # batch
         assert len(question)==len(samples) # batch
         if grad:
@@ -435,21 +495,26 @@ class StatuteModel(nn.Module):
         assert context is not None
         triples=[]
         for samp,c,q in zip(samples,context,question):
-            if 'how much tax' in q.lower():
-                new_question=q
+            if self.use_heuristic:
+                if 'how much tax' in q.lower():
+                    new_question=q
+                else:
+                    if 'section' in q:
+                        split_key='section '
+                    elif 'Section' in q:
+                        split_key='Section '
+                    elif 'sec_' in q:
+                        split_key='sec_'
+                    new_question=q.split(split_key)[0] + 'this ' \
+                            + ' '.join(q.split(split_key)[1].split(' ')[1:])
+                    new_question=new_question.strip(' ')
+                triples.append((samp,c,new_question))
             else:
-                if 'section' in q:
-                    split_key='section '
-                elif 'Section' in q:
-                    split_key='Section '
-                elif 'sec_' in q:
-                    split_key='sec_'
-                new_question=q.split(split_key)[0] + 'this ' \
-                        + ' '.join(q.split(split_key)[1].split(' ')[1:])
-                new_question=new_question.strip(' ')
-            triples.append((samp,c,new_question))
+                for si in samp:
+                    triples.append((statutes[si],c,q))
         input_dicts = [\
-            self.tokenizer.encode_plus(s, text_pair=c+' '+q, add_special_tokens=True, max_length=self.max_length) \
+            self.tokenizer.encode_plus(s, text_pair=c+' '+q, add_special_tokens=True, \
+            truncation_strategy='only_first', max_length=self.max_length) \
             for s,c,q in triples]
         input_ids=[x['input_ids'] for x in input_dicts]
         token_type_ids=[x['token_type_ids'] for x in input_dicts]
@@ -474,7 +539,25 @@ class StatuteModel(nn.Module):
         logging.debug('feed through model')
         last_hidden_state,_=self.bert(input_tensor,\
                 token_type_ids=token_type_ids_tensor, attention_mask=mask_tensor)
-        representations=last_hidden_state[:,0,:]
+        if self.use_heuristic:
+            representations=last_hidden_state[:,0,:]
+        else:
+            # get weight for each piece of statute
+            activations=self.pooler(last_hidden_state[:,0,:]) # (batch x num_samples) x 1
+            weights=torch.zeros(len(question),self.sample_size) # batch x num_samples
+            representations=torch.zeros(len(question),self.sample_size,last_hidden_state.size(2)) # batch x num_samples x hidden_size
+            if self.gpu:
+                weights=weights.to('cuda')
+                representations=representations.to('cuda')
+            ii=0
+            for bi,samp in enumerate(samples):
+                for jj,_ in enumerate(samp):
+                    weights[bi,jj]=activations[ii][0]
+                    representations[bi,jj,:]=last_hidden_state[ii,0,:]
+                    ii+=1
+            assert ii==len(activations)
+            weights=self.pooling_function(weights)
+            representations=torch.sum(torch.unsqueeze(weights,dim=-1)*representations,dim=1) # batch_size x dim
         logits=self.predictor(representations)
         logits=[ logits[ii,output_is_numerical[ii]]*self.tax_statistics[1]+self.tax_statistics[0]
             if output_is_numerical[ii]==1 else logits[ii,output_is_numerical[ii]]
