@@ -39,9 +39,9 @@ Scripts can be found under `exp/{neural,nonneural}_word2vec_{statutes,context,qu
 For convenience, we're providing a filtered word2vec file under `dataset/word2vec.txt`. **What about Andrew's TaxVectors?**
 
 # todo
-* [ ] get someone from the lab to try this out
-* [ ] add license
+* [ ] add citation for paper
 * [ ] remove the CUDA_VISIBLE_DEVICES statement in scripts
+* [ ] check hyperparameters in exp scripts (might have changed)
 * [ ] add pointer to Legal BERT or Legal BERT itself to repo
 * [ ] add pointer to Tax Vectors
 * [x] copy over the statute source files
