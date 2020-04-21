@@ -40,10 +40,9 @@ For convenience, we're providing a filtered word2vec file under `dataset/word2ve
 
 # todo
 * [ ] add citation for paper
-* [ ] remove the CUDA_VISIBLE_DEVICES statement in scripts
-* [ ] check hyperparameters in exp scripts (might have changed)
 * [ ] add pointer to Legal BERT or Legal BERT itself to repo
 * [ ] add pointer to Tax Vectors
+* [x] check hyperparameters in exp scripts (might have changed)
 * [x] copy over the statute source files
 * [x] write how to install section
 * [x] create requirement file for pip (run pip freeze on my repo and figure out swi-prolog version)
