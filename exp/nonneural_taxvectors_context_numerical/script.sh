@@ -1,7 +1,7 @@
 #!/bin/bash
-batch=16
+batch=256
 expdir=exp/nonneural_taxvectors_context_numerical
-learning_rate=0.05
+learning_rate=0.1
 smoothing_parameter=0.001
 weight_decay=0
 word_embeddings=/export/b01/nholzen/tax_law/ablai_tax_vectors.txt

@@ -1,5 +1,5 @@
 #!/bin/bash
-batch=256
+batch=32
 expdir=exp/nonneural_word2vec_statutes_binary
 learning_rate=0.01
 smoothing_parameter=0.001

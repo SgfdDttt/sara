@@ -1,6 +1,6 @@
 #!/bin/bash
 batch=4
-update_period=8
+update_period=4
 expdir=exp/bert_statutes_thaw_binary
 warmup=0.1
 learning_rate=5e-05

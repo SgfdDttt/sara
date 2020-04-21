@@ -1,7 +1,7 @@
 #!/bin/bash
 batch=4
 expdir=exp/bert_context_binary
-warmup=0.9
+warmup=0.1
 learning_rate=5e-05
 update_period=4
 date

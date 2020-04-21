@@ -1,8 +1,8 @@
 #!/bin/bash
 batch=4
-update_period=8
+update_period=16
 expdir=exp/legal_bert_statutes_binary
-warmup=0.3
+warmup=0.1
 learning_rate=5e-05
 bert_model=/export/b02/ablai/dec12_t1_dir9
 date

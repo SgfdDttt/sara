@@ -1,7 +1,7 @@
 #!/bin/bash
-batch=16
+batch=256
 expdir=exp/nonneural_word2vec_statutes_numerical
-learning_rate=0.1
+learning_rate=0.05
 smoothing_parameter=0.001
 weight_decay=0
 word_embeddings=dataset/word2vec.txt

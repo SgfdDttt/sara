@@ -1,9 +1,9 @@
 #!/bin/bash
-batch=128
+batch=256
 expdir=exp/neural_taxvectors_question_numerical
-learning_rate=0.1
+learning_rate=0.05
 num_layers=2
-num_units=64
+num_units=128
 smoothing_parameter=0.001
 weight_decay=0
 word_embeddings=/export/b01/nholzen/tax_law/ablai_tax_vectors.txt

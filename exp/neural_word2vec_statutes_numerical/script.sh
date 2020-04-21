@@ -1,9 +1,9 @@
 #!/bin/bash
-batch=16
+batch=128
 expdir=exp/neural_word2vec_statutes_numerical
-learning_rate=0.005
+learning_rate=0.001
 num_layers=4
-num_units=512
+num_units=128
 smoothing_parameter=0.001
 weight_decay=0
 word_embeddings=dataset/word2vec.txt
