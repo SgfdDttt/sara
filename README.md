@@ -16,9 +16,7 @@ You may run all the cases one after the other with `bash code/run_cases_prolog.s
 
 # Running experiments
 
-First, you need to generate the dataset files used by the models, using `python code/make_dataset.py`.
-
-Second, if you want to run the experiments with the taxvectors, you need to create a tokenized version of the dataset. For that, download the tools from BlairStanek/TaxVectorSemantics, point to that directory with the variable `LAW_TOKENIZER_DIR` in the script `code/tokenize_text_dataset.py`, then run `python code/tokenize_text_dataset.py`.
+The data files are provided under `dataset/` and `tokenized_dataset/`.
 
 Scripts for experiments are under `exp/`. For each experiment, we provide the hyperparameters that led to the best binary score, and those that led to the best numerical score.
 
