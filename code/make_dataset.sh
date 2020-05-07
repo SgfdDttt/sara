@@ -1,5 +1,5 @@
 # download data
-wget https://nlp.jhu.edu/law/sara.tar.gz
+wget https://nlp.jhu.edu/law/sara/sara.tar.gz
 # uncompress data
 tar -xzvf sara.tar.gz
 # create splits
