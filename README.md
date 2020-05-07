@@ -1,22 +1,15 @@
 # Statutory Reasoning Assessment: dataset and code
-The statutes are located under `statutes/source/` and the cases under `cases/`. This dataset is described in **pointer to paper**.
+This repository is tied to the **pointer to paper**. The dataset and Prolog program can be found [here](https://nlp.jhu.edu/law/).
 
 # Installing
 Install the required Python packages with `pip install -r requirements.txt`. To run the Prolog program, you need SWI-Prolog version 7.2.3 for amd64.
 
-# Running the Prolog program
+# The dataset
 
-## Prolog program
-Run `prolog statutes/prolog/init.pl`. This will load into memory the entirety of the Prolog version of the statutes, and open an interactive Prolog shell. From there, you can enter facts and call predicates.
-
-## Test cases
-Each case can be run individually, via e.g. `prolog cases/s3306_a_2_B_neg.pl`. The final `:- halt` statement ensures that no interactive shell remains open. If you want the shell to remain open, e.g. to try out other predicates with the facts of the case, comment that halt statement out.
-
-You may run all the cases one after the other with `bash code/run_cases_prolog.sh`. Running this command is a good initial check to see whether the Prolog program is being interpreted and run correctly.
+Download and format the dataset by running `bash code/make_dataset.sh`. You will need the tokenizer for legal text, and update the path in `code/tokenize_text_dataset.py`. Without the tokenizer, you can still run the script, which will nonetheless download the dataset and format it under `dataset/`.
 
 # Running experiments
-
-The data files are provided under `dataset/` and `tokenized_dataset/`.
+The data files should be stored under `dataset/` and `tokenized_dataset/`.
 
 Scripts for experiments are under `exp/`. For each experiment, we provide the hyperparameters that led to the best binary score, and those that led to the best numerical score.
 
@@ -35,8 +28,3 @@ To run the experiment with Legal BERT, the scripts are provided as well. They ar
 Scripts can be found under `exp/{neural,nonneural}_word2vec_{statutes,context,question}_{binary,numerical}/`, and run like the above. You will need to specify which word embedding file you want to use, by modifying the `word_embeddings` file in the bash script. The word embeddings need to be specified one word per line, followed by its vectors entries. The first line is the number of vectors followed by the dimensionality.
 
 For convenience, we're providing a filtered word2vec file under `dataset/word2vec.txt`. **Pointer to Andrew's TaxVectors**
-
-# todo
-* [ ] add citation for paper
-* [ ] add pointer to Legal BERT or Legal BERT itself to repo
-* [ ] add pointer to Tax Vectors
