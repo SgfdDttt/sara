@@ -1,4 +1,4 @@
-# Statutory Reasoning Assessment: dataset and code
+# Statutory Reasoning Assessment
 This repository is tied to the **pointer to paper**. The dataset and Prolog program can be found [here](https://nlp.jhu.edu/law/).
 
 # Installing
