@@ -1,5 +1,5 @@
 # Statutory Reasoning Assessment
-The dataset and Prolog program can be found [here](https://nlp.jhu.edu/law/). The paper can be found [here](https://arxiv.org/abs/2005.05257).
+The dataset and Prolog program can be found [here](https://nlp.jhu.edu/law/). The paper can be found [here](https://arxiv.org/abs/2005.05257). Legal BERT and Tax Vectors can be found [here](https://doi.org/10.7281/T1/N1X6I4).
 
 # Installing
 Install the required Python packages with `pip install -r requirements.txt`. To run the Prolog program, you need SWI-Prolog version 7.2.3 for amd64.
