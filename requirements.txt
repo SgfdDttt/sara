@@ -26,4 +26,4 @@ torch==1.1.0
 torchvision==0.3.0
 transformers==2.3.0
 update==0.0.1
-urllib3==1.25.6
+urllib3==1.26.5
