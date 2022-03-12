@@ -9,7 +9,7 @@ idna==2.8
 jmespath==0.9.4
 joblib==0.14.0
 numpy==1.17.3
-Pillow==6.2.1
+Pillow==9.0.1
 pkg-resources==0.0.0
 python-dateutil==2.8.0
 regex==2019.11.1
